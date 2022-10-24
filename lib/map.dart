@@ -9,15 +9,7 @@ class MapWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-// Prediction p =  PlacesAutocomplete.show(
-//                           context: context,
-//                           apiKey: kGoogleApiKey,
-//                           mode: Mode.overlay, // Mode.fullscreen
-//                           language: "fr",
-//                           components: [new Component(Component.country, "fr")]);
-
     Set<Marker> pin = <Marker>{};
-
     pin.add(const Marker(
         markerId: MarkerId("MarkerSC"),
         position: LatLng(

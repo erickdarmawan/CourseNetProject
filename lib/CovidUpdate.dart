@@ -12,12 +12,8 @@ class CovidUpdateWidget extends StatelessWidget {
     var url = Uri.https('data.covid19.go.id', 'public/api/update.json');
     var response = await https.get(url);
     var result = json.decode(response.body);
-
-    // await Future.delayed(Duration(seconds: 5));
-
     return result;
   }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

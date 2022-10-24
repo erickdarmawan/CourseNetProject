@@ -7,12 +7,10 @@ class CovidWidget extends StatelessWidget {
   const CovidWidget({Key? key}) : super(key: key);
 
   getDataCovid() async {
-    //https://data.covid19.go.id/public/api/update.json
+
     var url = Uri.https('data.covid19.go.id', 'public/api/update.json');
     var response = await http.get(url);
     var result = json.decode(response.body);
-
-    // await Future.delayed(Duration(seconds: 5));
     return result;
   }
 
@@ -113,11 +111,6 @@ class CovidWidget extends StatelessWidget {
               ],
             ));
 
-            // return Center(
-            //     child: Text(
-            //   'Covid-19 result has successfully loaded',
-            //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-            // ));
           } else if (snapshot.hasError) {
             return Center(
                 child: Text('Unable to load Covid-19 result:' +

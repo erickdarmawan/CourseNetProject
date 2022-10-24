@@ -142,16 +142,9 @@ class FlutterWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            // padding: const EdgeInsets.all(2.0),
-            //padding: const EdgeInsets.fromLTRB(5, 5, 1, 5),
-            //padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
             padding: const EdgeInsets.only(top: 5, bottom: 8),
             child: IconButton(onPressed: () {}, icon: const Icon(Icons.check)),
           ),
-          // Align(
-          //   alignment: Alignment.centerRight,
-          //   child: Text('Hello Boys'),
-          // ),
           const Divider(
             color: Colors.red,
             height: 80,
@@ -164,11 +157,6 @@ class FlutterWidget extends StatelessWidget {
             height: 200,
             color: Colors.blue,
           ),
-          // Image.network(
-          //   'https://img2.pngdownload.id/20180816/qpz/kisspng-mcdonald-s-museum-logo-portable-network-graphics-c-pronk-geschenken-en-kerstpakketten-referenties-5b7520f8bbf0a6.0511301815344028087698.jpg',
-          //   height: 210,
-          //   width: 210,
-          //),
         ],
       ),
     ));

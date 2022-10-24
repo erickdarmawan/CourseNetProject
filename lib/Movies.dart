@@ -4,7 +4,6 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'search.dart';
-//import 'package:cached_network_image/cached_network_image.dart';
 
 class MovieWidget extends StatefulWidget {
   const MovieWidget({Key? key}) : super(key: key);
@@ -25,11 +24,6 @@ class _MovieWidgetState extends State<MovieWidget> {
     }
     var xx = Uri.https("api.themoviedb.org", "3/movie/" + theAPI,
         {'api_key': '961cd89cb82c3946d873ce11f7c2a89f'});
-
-
-    // var xx = Uri.https("api.themoviedb.org", "3/movie/now_playing" // (replace),
-    //     {'api_key': '961cd89cb82c3946d873ce11f7c2a89f'});
-
     var response = await http.get(xx);
     var result = json.decode(response.body);
     return result;
@@ -38,7 +32,6 @@ class _MovieWidgetState extends State<MovieWidget> {
   var selectedRating = 0;
 
   var selectedIndex = 0;
-  //var iconSearch = Icons.search;
 
   @override
   Widget build(BuildContext context) {
@@ -153,20 +146,6 @@ class _MovieWidgetState extends State<MovieWidget> {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    //   Flexible(
-                                    //     child: Padding(
-                                    //       padding:
-                                    //           const EdgeInsets.only(top: 8.0),
-                                    //       child: Text(
-                                    //           //'Sypnosis: ' + '' +
-
-                                    //           movie['overview'],
-                                    //           textAlign: TextAlign.start,
-                                    //           style: TextStyle(
-                                    //             fontWeight: FontWeight.bold,
-                                    //           )),
-                                    //     ),
-                                    //   ),
                                     Flexible(
                                       child: Padding(
                                         padding:
@@ -217,10 +196,6 @@ class _MovieWidgetState extends State<MovieWidget> {
                                         itemBuilder: (context, _) => const Icon(
                                           Icons.star,
                                           color: Colors.amber,
-                                          // ),
-                                          // onRatingUpdate: (rating) => setState(() {
-                                          //   this.rating = rating;
-                                          //}
                                         ),
                                         onRatingUpdate: (double value) {},
                                       ),

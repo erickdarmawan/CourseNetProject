@@ -112,10 +112,6 @@ class HomeWidget extends StatelessWidget {
                                 color: theMenu.color,
                               ),
                             ),
-                            // decoration: BoxDecoration(
-                            //   borderRadius: BorderRadius.circular(10),
-                            //   border: Border.all(color: Colors.black),
-                            // ),
                           ),
                         ),
                       ),
@@ -131,8 +127,6 @@ class HomeWidget extends StatelessWidget {
                         ),
                       ),
                     ],
-
-                    //),
                   ),
                 ));
               }),

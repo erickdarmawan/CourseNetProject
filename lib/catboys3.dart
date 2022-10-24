@@ -28,11 +28,7 @@ class _CatboysWidgetState extends State<CatboysWidget> {
       body: Column(children: [
         Expanded(
           child:
-              //GridView
-              // (
-              // gridDelegate:
-              //     SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              // children: [
+
               PhotoViewGallery.builder(
                   itemCount: ImageUrl.length,
                   builder: (context, index) {
@@ -54,22 +50,8 @@ class _CatboysWidgetState extends State<CatboysWidget> {
                           ),
                         ),
                       )),
-          //]
-        ),
-
-        // ),
-        //    GestureDetector(onTap:(){
-        //      Navigator.push(
-        // context,
-        // MaterialPageRoute(
-        //   builder: (context) => RouteTwo(
-        //       image: [ImageUrl].image,
-
-        //  ),
-        //  );
-//	},
-        //       )
-      ]),
-    );
-  }
-}
+                      ),
+                    ]),
+                  );
+                }
+              }

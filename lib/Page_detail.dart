@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-//import 'package:cloud_firestore/cloud_firestore.dart';
 
 class PageDetailWidget extends StatelessWidget {
   PageDetailWidget({Key? key}) : super(key: key);
@@ -105,26 +104,6 @@ class PageDetailWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          // TextField(
-                          //   decoration: const InputDecoration(
-                          //     labelText: 'Text:',
-                          //     hintText: 'Enter anything to share',
-                          //   ),
-                          //   maxLines: 2,
-                          //   onChanged: (String value) => setState(() {
-                          //     text = value;
-                          //   }),
-                          // ),
-                          // TextField(
-                          //   decoration: const InputDecoration(
-                          //     labelText: 'Subject:',
-                          //     hintText: 'Enter subject to share',
-                          //   ),
-                          //   maxLines: 2,
-                          //   onChanged: (String value) => setState(() {
-                          //     link = value;
-                          //   }),
-                          // ),
                           Padding(
                             padding: const EdgeInsets.only(top: 10.0),
                             child: Center(
@@ -189,38 +168,6 @@ class PageDetailWidget extends StatelessWidget {
                               ),
                             ),
                           ),
-//print(movie['vote_average']);
-
-                          //Text(movie['vote_average']),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(10.0),
-
-                          //   child: Center(
-                          //     child: Text(
-                          //         'Ratings:  ' +
-                          //             '' +
-                          //             movie['vote_average'].toString(),
-                          //         style:
-                          //             TextStyle(fontWeight: FontWeight.bold)),
-                          //   ),
-                          // ),
-                          // const Padding(padding: EdgeInsets.only(top: 15.0)),
-                          // Container(
-                          //     decoration: BoxDecoration(
-                          //         borderRadius: BorderRadius.circular(10)),
-                          //     color: Colors.blue,
-                          //     child: ElevatedButton(
-                          //       child: Text('Book Now'),
-                          //       onPressed: () {
-                          //         FirebaseFirestore.instance
-                          //             .collection('booking')
-                          //             .add({
-                          //           'judul': movie['title'],
-                          //           'overview': movie['overview'],
-                          //           'poster': movie['poster_path']
-                          //         });
-                          //       },
-                          //     )),
 
                           Builder(
                             builder: (BuildContext context) {
@@ -235,18 +182,6 @@ class PageDetailWidget extends StatelessWidget {
                                       onPressed: () async {
                                         await Share.share('Share this movie');
                                       }
-
-                                      //text.isEmpty
-                                      // ? null
-                                      // : () => _onShare(context),
-                                      // child: const Text(
-                                      //   'Share',
-                                      //   style: TextStyle(
-                                      //       color: Colors.white,
-                                      //       //backgroundColor: Colors.blue,
-                                      //       fontSize: 18,
-                                      //       fontWeight: FontWeight.bold),
-                                      // ),
                                       ),
                                 ),
                               );
@@ -272,30 +207,8 @@ class PageDetailWidget extends StatelessWidget {
   }
 
   double rating = 0;
-
-  // void showRating() => showDialog(context: context,
-  // builder: (context) => AlertDialog()
-
-  // Widget _heading(String text) => Column(
-  //       children: [
-  //         Text(
-  //           text,
-  //           style: TextStyle(
-  //             fontWeight: FontWeight.w300,
-  //             fontSize: 24.0,
-  //           ),
-  //         ),
-  //         SizedBox(
-  //           height: 20.0,
-  //         ),
-  //       ],
-  //     );
-
   void _onShare(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
-
-// subject is optional but it will be used
-// only when sharing content over email
     await Share.share(text,
         subject: link,
         sharePositionOrigin: box!.localToGlobal(Offset.zero) & box.size);

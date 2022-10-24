@@ -158,10 +158,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                 onPressed: () {
                   Navigator.pushNamed(context, 'page_register');
                 },
-                // style: ButtonStyle(
 
-                //   backgroundColor: MaterialStateProperty.all(Colors.deepOrange),
-                //  ),
                 child: const Text(
                   'Register Here',
                 ),

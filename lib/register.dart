@@ -12,9 +12,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
   var eyeChecked = false;
 
   bool _obscureText = true;
-
-  //String _password;
-
   void _toggle() {
     setState(() {
       _obscureText = !_obscureText;
