@@ -57,17 +57,17 @@ class _LoginWidgetState extends State<LoginWidget> {
                     color: Colors.black),
                 // autofocus: true,
                 validator: (value) {
-                  if (value!.isEmpty) {
-                    return " Enter your valid email address";
-                  } else if (value.length < 10) {
-                    return "Email must at least 10 characters";
-                  } else if (value.contains('@') == false) {
-                    return "Invalid email address";
-                  } else if (EmailValidator.validate(value) == false) {
-                    return "Invalid email address!!";
-                  } else {
-                    return null;
-                  }
+                  // if (value!.isEmpty) {
+                  //   return " Enter your valid email address";
+                  // } else if (value.length < 10) {
+                  //   return "Email must at least 10 characters";
+                  // } else if (value.contains('@') == false) {
+                  //   return "Invalid email address";
+                  // } else if (EmailValidator.validate(value) == false) {
+                  //   return "Invalid email address!!";
+                  // } else {
+                  //   return null;
+                  // }
                 },
                 maxLength: 30,
                 cursorColor: Colors.black,

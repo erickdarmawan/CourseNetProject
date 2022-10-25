@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'CarouselSlider.dart';
+import 'carousel_slider.dart';
 import 'data/menu.dart';
 
 class HomeWidget extends StatelessWidget {

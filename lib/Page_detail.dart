@@ -40,22 +40,42 @@ class PageDetailWidget extends StatelessWidget {
               BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
                 child: Container(
-                  color: Colors.yellow.withOpacity(0.2),
+                  color: Colors.grey.withOpacity(0.2),
                 ),
               ),
               ListView(
                 children: [
                   Container(
-                    height: 300,
-                    width: 250,
+                    height: 600,
+                    // width: 200,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(25),
-                        boxShadow: const [
+                        borderRadius: BorderRadius.circular(2),
+                        boxShadow: [
                           BoxShadow(
-                              color: Colors.white,
-                              blurRadius: 50,
-                              offset: Offset(0, 0)),
+                            spreadRadius: 1,
+                            color: Colors.blue,
+                            blurRadius: 5,
+                            offset: Offset(-11,0)
+                          ),
+                          BoxShadow(
+                            spreadRadius: 2,
+                            color: Colors.blue.shade100,
+                            blurRadius: 30,
+                            offset: Offset(-7,0)
+                          ),
+                          BoxShadow(
+                            spreadRadius: 3,
+                            color: Colors.blue.shade300,
+                            blurRadius: 35,
+                            offset: Offset(-9,0)
+                          ),
+                          BoxShadow(
+                            spreadRadius: 4,
+                            color: Colors.white,
+                            blurRadius: 45,
+                            offset: Offset(-11,0)
+                          ),
                         ],
                         image: DecorationImage(
                             image: NetworkImage(
@@ -63,20 +83,28 @@ class PageDetailWidget extends StatelessWidget {
                               movie['poster_path'],
                         ))),
                   ),
+                  SizedBox(
+                    height: 20,
+                  ),
                   Padding(
                     padding: const EdgeInsets.all(12.0),
                     child: Center(
                         child: Text(
                       movie['title'],
-                      style: const TextStyle(
+                      style: TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
                           shadows: <Shadow>[
                             Shadow(
                               offset: Offset(0.0, 0.0),
-                              blurRadius: 20.0,
-                              color: Colors.white,
+                              blurRadius: 10.0,
+                              color: Colors.blue.shade900,
                             ),
+                            Shadow(
+                              offset: Offset(0.0, 0.0),
+                              blurRadius: 20.0,
+                              color: Colors.yellow.shade100,
+                            ), 
                           ]),
                     )),
                   ),
@@ -85,10 +113,15 @@ class PageDetailWidget extends StatelessWidget {
                       width: 350,
                       child: Text(
                         movie['overview'],
-                        style: const TextStyle(
+                        style: TextStyle(
                             fontSize: 18,
                             shadows: <Shadow>[
                               Shadow(
+                                offset: Offset(0.0, 0.0),
+                                blurRadius: 10.0,
+                                color: Colors.blue.shade100,
+                              ),
+                               Shadow(
                                 offset: Offset(0.0, 0.0),
                                 blurRadius: 10.0,
                                 color: Colors.white,
@@ -110,13 +143,18 @@ class PageDetailWidget extends StatelessWidget {
                               child: Text(
                                 'Release Date:  ' '' +
                                     movie['release_date'].toString(),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   shadows: <Shadow>[
                                     Shadow(
                                       offset: Offset(0.0, 1.0),
-                                      blurRadius: 10.0,
+                                      blurRadius: 5.0,
                                       color: Colors.white,
+                                    ),
+                                    Shadow(
+                                      offset: Offset(0.0, 1.0),
+                                      blurRadius: 10.0,
+                                      color: Colors.blue.shade200,
                                     ),
                                   ],
                                 ),
@@ -128,13 +166,18 @@ class PageDetailWidget extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 'Rating: $rating ',
-                                style: const TextStyle(
+                                style:  TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
                                   shadows: <Shadow>[
                                     Shadow(
                                       offset: Offset(0.0, 0.0),
                                       blurRadius: 10.0,
+                                      color: Colors.blue.shade300,
+                                    ),
+                                    Shadow(
+                                      offset: Offset(0.0, 0.0),
+                                      blurRadius: 15.0,
                                       color: Colors.white,
                                     ),
                                   ],
@@ -142,7 +185,7 @@ class PageDetailWidget extends StatelessWidget {
                               ),
                             ),
                           ),
-
+                          SizedBox(height: 20,),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 15.0),
                             child: Center(
@@ -168,24 +211,46 @@ class PageDetailWidget extends StatelessWidget {
                               ),
                             ),
                           ),
-
-                          Builder(
-                            builder: (BuildContext context) {
-                              return Center(
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.blue),
-                                  child: IconButton(
-                                      color: Colors.white,
-                                      icon: const Icon(Icons.share),
-                                      onPressed: () async {
-                                        await Share.share('Share this movie');
-                                      }
-                                      ),
+                          SizedBox(height: 20),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.blue),
+                                child: IconButton(
+                                  onPressed: () async {Navigator.pushNamed(context, 'page_movies');},
+                                  icon: Icon(
+                                    Icons.arrow_back,
+                                    color: Colors.white,
+                                  ),
                                 ),
-                              );
-                            },
+                              ),
+                              SizedBox(
+                                width: 20,
+                              ),
+                              Builder(
+                                builder: (BuildContext context) {
+                                  return Center(
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          color: Colors.blue),
+                                      child: IconButton(
+                                          color: Colors.white,
+                                          icon: const Icon(Icons.share),
+                                          onPressed: () async {
+                                            await Share.share(
+                                                'Share this movie');
+                                          }),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
                           ),
                         ],
                       ),

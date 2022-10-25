@@ -22,35 +22,39 @@ class _SearchWidgetState extends State<SearchWidget> {
       title: titleWidget,
       centerTitle: true,
       actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: 10.0),
-          child: GestureDetector(
-              onTap: () {
-                if (iconSearch == Icons.search) {
-                  iconSearch = Icons.cancel;
-                  titleWidget = ListTile(
-                    leading: const Icon(Icons.search),
-                    title: TextFormField(
-                      onFieldSubmitted: (value) {
-                        Navigator.pushNamed(context, "page_result",
-                            arguments: value);
-                      },
-                      decoration: InputDecoration(
-                        hintText: "Search movie...",
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
+        IconButton(
+          onPressed: (){
+            Navigator.pushNamed(context, 'page_home');
+            },
+          icon: Icon(Icons.arrow_back)),
+
+        GestureDetector(
+            onTap: () {
+              if (iconSearch == Icons.search) {
+                iconSearch = Icons.cancel;
+                titleWidget = ListTile(
+                  leading: const Icon(Icons.search),
+                  title: TextFormField(
+                    onFieldSubmitted: (value) {
+                      Navigator.pushNamed(context, "page_result",
+                          arguments: value);
+                    },
+                    decoration: InputDecoration(
+                      hintText: "Search movie...",
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                  );
-                } else {
-                  iconSearch = Icons.search;
-                  titleWidget = const Text("List Movie");
-                }
-                setState(() {});
-              },
-              child: Icon(iconSearch)),
-        ),
+                  ),
+                );
+              } 
+              else {
+                iconSearch = Icons.search;
+                titleWidget = const Text("List Movie");
+              }
+              setState(() {});
+            },
+            child: Icon(iconSearch)),
       ],
     );
   }

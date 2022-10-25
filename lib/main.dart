@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:my_fluttercourse_p2/DataCovid.dart';
-import 'package:my_fluttercourse_p2/Movies.dart';
+import 'package:my_fluttercourse_p2/data_covid.dart';
+import 'package:my_fluttercourse_p2/movies.dart';
 import 'package:my_fluttercourse_p2/home.dart';
 import 'package:my_fluttercourse_p2/login.dart';
-import 'home.dart';
+
 import 'register.dart';
 import 'dynamic_list_view.dart';
 import 'map.dart';
-import 'DataCovid.dart';
-import 'CovidUpdate.dart';
+
+import 'covid_update.dart';
 import 'list_universty.dart';
 import 'catboys3.dart';
 import 'Page_detail.dart';
 import 'result.dart';
-import 'Holiday.dart';
+import 'holiday.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
