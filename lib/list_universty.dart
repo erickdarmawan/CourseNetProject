@@ -29,12 +29,8 @@ class _ListUniversityWidgetState extends State<ListUniversityWidget> {
       ),
       body: ListView(
         children: [
-          //processing ? CircularProgressIndicator() : Container(),
-          Visibility(
-            visible: processing,
-            child: const CircularProgressIndicator(),
-          ),
           DropdownButton(
+            hint: Text('Select your country'),
             value: selectedCountry,
             items: countries.map((country) {
               return DropdownMenuItem(value: country, child: Text(country));
@@ -45,12 +41,6 @@ class _ListUniversityWidgetState extends State<ListUniversityWidget> {
               Text(selectedCountry ?? '');
             },
           ),
-          //processing ? CircularProgressIndicator() : Container(),
-          Visibility(
-            visible: processing,
-            child: const CircularProgressIndicator(),
-          ),
-
           FutureBuilder(
             future: getListUniversities(),
             builder: (context, snapshot) {
@@ -70,10 +60,7 @@ class _ListUniversityWidgetState extends State<ListUniversityWidget> {
                     itemBuilder: (context, index) {
                       var univ = dataS[index] as Map<String, dynamic>;
                       int no = index + 1;
-
-                      var webpages = univ["web_pages"
-                          // + "domains"
-                          ] as List<dynamic>;
+                      var webpages = univ["web_pages"] as List<dynamic>;
                       var webpage = '';
                       var webpage2 = '';
                       var allWebpages = webpages.join(',');
@@ -95,7 +82,7 @@ class _ListUniversityWidgetState extends State<ListUniversityWidget> {
                             no.toString() +
                                 '.' +
                                 univ['name'] +
-                                '' +
+                                ' ' +
                                 allWebpages,
                             style: const TextStyle(fontSize: 15),
                           ),
@@ -111,18 +98,18 @@ class _ListUniversityWidgetState extends State<ListUniversityWidget> {
   }
 
   Future getListUniversities() async {
+    if (selectedCountry == null) {
+      return [];
+    }
     var url = Uri.http(
         'universities.hipolabs.com', 'search', {'country': selectedCountry});
 
-    //jsononject => Map<String, dynamic>
-    //jsonarray => List<dynamic> (berisi banyak map, dynamic>
     var response = await http.get(url);
     var result = json.decode(response.body) as List<dynamic>;
     return result;
   }
 
   Future getListCountries() async {
-    // https: //api.first.org/data/v1/countries
     var url = Uri.https('api.first.org', 'data/v1/countries');
     var response = await http.get(url);
     var result = json.decode(response.body);
@@ -138,7 +125,5 @@ class _ListUniversityWidgetState extends State<ListUniversityWidget> {
     });
     processing = false;
     setState(() {});
-    // await Future.delayed(Duration(seconds: 5));
   }
 }
-

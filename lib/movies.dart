@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'dart:convert';
@@ -139,7 +138,6 @@ class _MovieWidgetState extends State<MovieWidget> {
                                   width: 3,
                                 ),
                               ),
-                              //alignment: Alignment.topCenter,
                               height: 200,
                               width: 180,
                               child: Expanded(

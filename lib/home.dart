@@ -131,7 +131,6 @@ class HomeWidget extends StatelessWidget {
                 ));
               }),
         ),
-        //import CarouselSlider.dart
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: CarouselWidget(),

@@ -47,35 +47,30 @@ class PageDetailWidget extends StatelessWidget {
                 children: [
                   Container(
                     height: 600,
-                    // width: 200,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(2),
                         boxShadow: [
                           BoxShadow(
-                            spreadRadius: 1,
-                            color: Colors.blue,
-                            blurRadius: 5,
-                            offset: Offset(-11,0)
-                          ),
+                              spreadRadius: 1,
+                              color: Colors.blue,
+                              blurRadius: 5,
+                              offset: Offset(-11, 0)),
                           BoxShadow(
-                            spreadRadius: 2,
-                            color: Colors.blue.shade100,
-                            blurRadius: 30,
-                            offset: Offset(-7,0)
-                          ),
+                              spreadRadius: 2,
+                              color: Colors.blue.shade100,
+                              blurRadius: 30,
+                              offset: Offset(-7, 0)),
                           BoxShadow(
-                            spreadRadius: 3,
-                            color: Colors.blue.shade300,
-                            blurRadius: 35,
-                            offset: Offset(-9,0)
-                          ),
+                              spreadRadius: 3,
+                              color: Colors.blue.shade300,
+                              blurRadius: 35,
+                              offset: Offset(-9, 0)),
                           BoxShadow(
-                            spreadRadius: 4,
-                            color: Colors.white,
-                            blurRadius: 45,
-                            offset: Offset(-11,0)
-                          ),
+                              spreadRadius: 4,
+                              color: Colors.white,
+                              blurRadius: 45,
+                              offset: Offset(-11, 0)),
                         ],
                         image: DecorationImage(
                             image: NetworkImage(
@@ -104,7 +99,7 @@ class PageDetailWidget extends StatelessWidget {
                               offset: Offset(0.0, 0.0),
                               blurRadius: 20.0,
                               color: Colors.yellow.shade100,
-                            ), 
+                            ),
                           ]),
                     )),
                   ),
@@ -121,7 +116,7 @@ class PageDetailWidget extends StatelessWidget {
                                 blurRadius: 10.0,
                                 color: Colors.blue.shade100,
                               ),
-                               Shadow(
+                              Shadow(
                                 offset: Offset(0.0, 0.0),
                                 blurRadius: 10.0,
                                 color: Colors.white,
@@ -166,7 +161,7 @@ class PageDetailWidget extends StatelessWidget {
                             child: Center(
                               child: Text(
                                 'Rating: $rating ',
-                                style:  TextStyle(
+                                style: TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
                                   shadows: <Shadow>[
@@ -185,7 +180,9 @@ class PageDetailWidget extends StatelessWidget {
                               ),
                             ),
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(
+                            height: 20,
+                          ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 15.0),
                             child: Center(
@@ -221,7 +218,9 @@ class PageDetailWidget extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(10),
                                     color: Colors.blue),
                                 child: IconButton(
-                                  onPressed: () async {Navigator.pushNamed(context, 'page_movies');},
+                                  onPressed: () async {
+                                    Navigator.pushNamed(context, 'page_movies');
+                                  },
                                   icon: Icon(
                                     Icons.arrow_back,
                                     color: Colors.white,

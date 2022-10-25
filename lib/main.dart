@@ -22,7 +22,7 @@ Future<void> main() async {
     routes: {
       'page_home': (context) => const HomeWidget(),
       'page_register': (context) => const RegisterWidget(),
-      'page_login': (context) => const LoginWidget(),
+      //'page_login': (context) => const LoginWidget(),
       'page_dynamic_view': (context) => DynamicListView(),
       'page_map': (context) => const MapWidget(),
       'page_covid': (context) => const CovidWidget(),
@@ -34,7 +34,8 @@ Future<void> main() async {
       'page_result': (context) => const ResultWidget(),
       'page_holiday': (context) => const HolidaysWidget(),
     },
-    home: const LoginWidget(),
+    home: const HomeWidget()
+    // LoginWidget(),
   ));
 }
 
@@ -120,10 +121,7 @@ class FlutterWidget extends StatelessWidget {
             ),
           ),
           Padding(
-            //padding: const EdgeInsets.all(8.0),
-            //padding: const EdgeInsets.fromLTRB(5, 5, 1, 5),
             padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-            //padding: EdgeInsets.only(top: 5, bottom: 8),
             child: OutlinedButton(
                 style: ButtonStyle(
                     side:
@@ -132,9 +130,7 @@ class FlutterWidget extends StatelessWidget {
                 child: const Text('Submit 2')),
           ),
           Padding(
-            //padding: const EdgeInsets.all(8.0),
-            //padding: const EdgeInsets.fromLTRB(5, 5, 1, 5),
-            //padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+
             padding: const EdgeInsets.only(top: 5, bottom: 8),
             child: TextButton(
               onPressed: () {},

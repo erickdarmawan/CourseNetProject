@@ -23,11 +23,10 @@ class _SearchWidgetState extends State<SearchWidget> {
       centerTitle: true,
       actions: [
         IconButton(
-          onPressed: (){
-            Navigator.pushNamed(context, 'page_home');
+            onPressed: () {
+              Navigator.pushNamed(context, 'page_home');
             },
-          icon: Icon(Icons.arrow_back)),
-
+            icon: Icon(Icons.arrow_back)),
         GestureDetector(
             onTap: () {
               if (iconSearch == Icons.search) {
@@ -47,8 +46,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                     ),
                   ),
                 );
-              } 
-              else {
+              } else {
                 iconSearch = Icons.search;
                 titleWidget = const Text("List Movie");
               }

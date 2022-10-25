@@ -14,12 +14,8 @@ class CarouselWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      // child: Container(
-      //   decoration: BoxDecoration(
-      //       borderRadius: BorderRadius.circular(10), color: Colors.grey),
       child: Card(
         borderOnForeground: true,
-        //color: Colors.grey.withOpacity(0.6),
         child: CarouselSlider(
             items: urlImages
                 .map((item) => Container(
@@ -34,7 +30,6 @@ class CarouselWidget extends StatelessWidget {
             options: CarouselOptions(
               height: 200,
               aspectRatio: 16 / 9,
-              // viewportFraction: 0.8,
               initialPage: 0,
               enableInfiniteScroll: true,
               reverse: false,
@@ -43,7 +38,6 @@ class CarouselWidget extends StatelessWidget {
               autoPlayAnimationDuration: const Duration(milliseconds: 800),
               autoPlayCurve: Curves.fastOutSlowIn,
               enlargeCenterPage: false,
-              //onPageChanged: callbackFunction,
               scrollDirection: Axis.horizontal,
             )),
       ),
