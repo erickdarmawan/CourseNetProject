@@ -7,7 +7,6 @@ class CovidWidget extends StatelessWidget {
   const CovidWidget({Key? key}) : super(key: key);
 
   getDataCovid() async {
-
     var url = Uri.https('data.covid19.go.id', 'public/api/update.json');
     var response = await http.get(url);
     var result = json.decode(response.body);
@@ -30,30 +29,97 @@ class CovidWidget extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var a = snapshot.data as Map<String, dynamic>;
-            // json
-            return Center(
-                child: Column(
+            return Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Center(
-                  child: Text(
-                    'Cases Count :' + a['data']['jumlah_odp'].toString(),
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  child: Card(
+                    color: Colors.grey.shade300,
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      height: 50,
+                      width: 350,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Cases Count :',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            a['data']['jumlah_odp'].toString(),
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
+                SizedBox(height: 20),
                 Center(
-                  child: Text(
-                    'Total Spesiman: ' + a['data']['total_spesimen'].toString(),
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  child: Card(
+                    color: Colors.grey.shade300,
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      height: 50,
+                      width: 350,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Total Spesiman:',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            a['data']['total_spesimen'].toString(),
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
+                SizedBox(height: 20),
                 Center(
-                  child: Text(
-                    'Specimen Negative:' +
-                        a['data']['total_spesimen_negatif'].toString(),
-                    style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  child: Card(
+                    color: Colors.grey.shade300,
+                    child: Container(
+                      padding: const EdgeInsets.all(15),
+                      height: 50,
+                      width: 350,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text(
+                            'Specimen Negative:',
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          Text(
+                            a['data']['total_spesimen_negatif'].toString(),
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
+                SizedBox(height: 20),
                 Column(
                   children: <Widget>[
                     Card(
@@ -69,48 +135,14 @@ class CovidWidget extends StatelessWidget {
                         child: const Text(
                           'Update Today',
                           style: TextStyle(
-                              color: Colors.white,
-                              fontSize: null,
-                              fontWeight: FontWeight.bold),
+                              color: Colors.white, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
                   ],
                 ),
-                Text(
-                    'Todays Date: ' +
-                        a['update']["penambahan"]["tanggal"].toString(),
-                    style:
-                        const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                Text(
-                    'Positive: ' +
-                        a['update']["penambahan"]["jumlah_positif"].toString(),
-                    style:
-                        const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                Text(
-                    'Treated: ' +
-                        a['update']["penambahan"]["jumlah_dirawat"].toString(),
-                    style:
-                        const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                Text(
-                    'Cured: ' +
-                        a['update']["penambahan"]["jumlah_sembuh"].toString(),
-                    style:
-                        const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                Text(
-                    'Death: ' +
-                        a['update']["penambahan"]["jumlah_meninggal"]
-                            .toString(),
-                    style:
-                        const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                Text(
-                    'Todays Date: ' +
-                        a['update']["penambahan"]["tanggal"].toString(),
-                    style:
-                        const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
               ],
-            ));
-
+            );
           } else if (snapshot.hasError) {
             return Center(
                 child: Text('Unable to load Covid-19 result:' +

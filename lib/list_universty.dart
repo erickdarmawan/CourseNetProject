@@ -30,14 +30,15 @@ class _ListUniversityWidgetState extends State<ListUniversityWidget> {
       body: ListView(
         children: [
           DropdownButton(
-            hint: Text('Select your country'),
+            hint: const Text('Select your country'),
             value: selectedCountry,
             items: countries.map((country) {
               return DropdownMenuItem(value: country, child: Text(country));
             }).toList(),
             onChanged: (value) {
-              selectedCountry = value;
-              setState(() {});
+              setState(() {
+                selectedCountry = value;
+              });
               Text(selectedCountry ?? '');
             },
           ),
@@ -61,17 +62,7 @@ class _ListUniversityWidgetState extends State<ListUniversityWidget> {
                       var univ = dataS[index] as Map<String, dynamic>;
                       int no = index + 1;
                       var webpages = univ["web_pages"] as List<dynamic>;
-                      var webpage = '';
-                      var webpage2 = '';
                       var allWebpages = webpages.join(',');
-
-                      if (webpages.isNotEmpty) {
-                        webpage = webpages[0];
-
-                        if (webpages.length > 1) {
-                          webpage2 = webpages[1];
-                        }
-                      }
 
                       return Card(
                         color: Colors.indigo.shade50,
@@ -123,7 +114,9 @@ class _ListUniversityWidgetState extends State<ListUniversityWidget> {
     countries.sort((a, b) {
       return a.toString().compareTo(b.toString());
     });
-    processing = false;
-    setState(() {});
+
+    setState(() {
+      processing = false;
+    });
   }
 }

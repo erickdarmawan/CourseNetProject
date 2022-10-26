@@ -12,9 +12,9 @@ class SearchWidget extends StatefulWidget implements PreferredSizeWidget {
 
 class _SearchWidgetState extends State<SearchWidget> {
   var iconSearch = Icons.search;
-  Widget titleWidget = const Text(
+  Widget titleWidget = Text(
     "List Movie",
-  );
+    );
 
   @override
   Widget build(BuildContext context) {
@@ -22,11 +22,6 @@ class _SearchWidgetState extends State<SearchWidget> {
       title: titleWidget,
       centerTitle: true,
       actions: [
-        IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, 'page_home');
-            },
-            icon: Icon(Icons.arrow_back)),
         GestureDetector(
             onTap: () {
               if (iconSearch == Icons.search) {
