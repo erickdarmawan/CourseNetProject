@@ -225,7 +225,7 @@ class HomeWidget extends StatelessWidget {
               shadowColor: Colors.blue,
               elevation: 10,
               child: ListTile(
-                leading: const Icon(Icons.file_present),
+                leading: const Icon(Icons.calendar_month_outlined),
                 title: const Text('Calendar View'),
                 onTap: () {
                   Navigator.pushNamed(context, 'page_calendar');

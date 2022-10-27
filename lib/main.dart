@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_fluttercourse_p2/calendar_view.dart';
 import 'package:my_fluttercourse_p2/data_covid.dart';
 import 'package:my_fluttercourse_p2/movies.dart';
 import 'package:my_fluttercourse_p2/home.dart';
@@ -7,10 +8,10 @@ import 'package:my_fluttercourse_p2/login.dart';
 import 'register.dart';
 import 'dynamic_list_view.dart';
 import 'map.dart';
-
+import 'calendar_view.dart';
 import 'covid_update.dart';
 import 'list_universty.dart';
-import 'catboys3.dart';
+import 'catboys.dart';
 import 'Page_detail.dart';
 import 'result.dart';
 import 'holiday.dart';
@@ -32,7 +33,8 @@ Future<void> main() async {
       'page_movies': (context) => const MovieWidget(),
       'page_detail': (context) => PageDetailWidget(),
       'page_result': (context) => const ResultWidget(),
-      'page_holiday': (context) => const HolidaysWidget(),
+      // 'page_holiday': (context) => const HolidaysWidget(),
+      'page_calendar':(context) => const CalendarView(),
     },
     home: const HomeWidget()
     // LoginWidget(),
