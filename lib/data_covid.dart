@@ -18,10 +18,10 @@ class CovidWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.indigo.shade100,
+        backgroundColor: Colors.blue,
         title: const Text(
           'Statistic Covid-19 Indonesia',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
       ),
       body: FutureBuilder(

@@ -181,10 +181,10 @@ class _MovieWidgetState extends State<MovieWidget> {
                                       padding:
                                           const EdgeInsets.only(bottom: 15.0),
                                       child: RatingBar.builder(
-                                        initialRating: movie['vote_average'],
+                                        initialRating: movie['vote_average'] != int ? movie['vote_average'].toDouble() : [],
                                         glow: true,
                                         glowColor: Colors.amber.shade50,
-                                        minRating: movie['vote_average'],
+                                        minRating: movie['vote_average'] != int ? movie['vote_average'].toDouble() : [],
                                         direction: Axis.horizontal,
                                         allowHalfRating: true,
                                         itemCount: 5,

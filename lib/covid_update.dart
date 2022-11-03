@@ -20,23 +20,17 @@ class CovidUpdateWidget extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-            backgroundColor: Colors.blueAccent.shade100,
+            backgroundColor: Colors.blue,
             title: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                BackButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, 'page_covid');
-                  },
-                ),
-                SizedBox(
-                  width: 10,
-                ),
                 Text(
                   'Today\'s Update',
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(width: 10,)
+                SizedBox(
+                  width: 10,
+                )
               ],
             ),
             centerTitle: false),
@@ -61,7 +55,7 @@ class CovidUpdateWidget extends StatelessWidget {
                               var getdataCovid =
                                   snapshot.data as Map<String, dynamic>;
                               var f = NumberFormat('##,###.0', 'en_US');
-                              print('DEBUG ${snapshot.data}');
+
                               return ListView(
                                 shrinkWrap: true,
                                 children: [
@@ -238,8 +232,30 @@ class CovidUpdateWidget extends StatelessWidget {
                                       ),
                                     ),
                                   ),
-                                  SizedBox(height: 20),
-                                  Text(f.format(123456.28)),
+                                  SizedBox(
+                                    height: 20,
+                                  ),
+                                  Center(
+                                    child: Container(
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                            color: Colors.blue,
+                                            borderRadius:
+                                                BorderRadius.circular(5)),
+                                        child: IconButton(
+                                          onPressed: () {
+                                            Navigator.pushNamed(
+                                                context, 'page_covid');
+                                          },
+                                          icon: Icon(
+                                            Icons.arrow_back,
+                                            color: Colors.white,
+                                          ),
+                                        )),
+                                  ),
+                                  SizedBox(
+                                    height: 25,
+                                  )
                                 ],
                               );
                             } else if (snapshot.hasError) {
@@ -252,7 +268,7 @@ class CovidUpdateWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: const [
                                   CircularProgressIndicator(),
-                                  Text('Loading...')
+                                  Text('Loading...'),
                                 ],
                               );
                             }

@@ -4,17 +4,17 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 void main() {
-  runApp(const CalendarView());
+  runApp(const CalendarTable());
 }
 
-class CalendarView extends StatefulWidget {
-  const CalendarView({Key? key}) : super(key: key);
+class CalendarTable extends StatefulWidget {
+  const CalendarTable({Key? key}) : super(key: key);
 
   @override
-  State<CalendarView> createState() => _CalendarViewState();
+  State<CalendarTable> createState() => _CalendarTableState();
 }
 
-class _CalendarViewState extends State<CalendarView> {
+class _CalendarTableState extends State<CalendarTable> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
 
   DateTime _focusedDay = DateTime.now();
@@ -24,20 +24,6 @@ class _CalendarViewState extends State<CalendarView> {
   void initState() {
     super.initState();
     _selectedDay = _focusedDay;
-
-    loadPreviousEvents() {
-      mySelectedEvents = {
-        '2022-11-22': [
-          {"eventDescp": '11', 'eventTitle': '111'},
-          {"eventDescp": '22', 'eventTitle': '22'}
-        ],
-        '2022-11-30': [
-          {'eventDescp': '22', 'evenTitle': '22'}
-        ]
-      };
-    }
-
-    ;
   }
 
   List _listOfDayEvents(DateTime dateTime) {
@@ -130,142 +116,137 @@ class _CalendarViewState extends State<CalendarView> {
 
   @override
   Widget build(BuildContext context) {
-    CalendarFormat format = CalendarFormat.month;
-
-    TextStyle textstyle = TextStyle(
-      color: Colors.black
-    );
-    if(DateTime.sunday > DateTime.saturday)
-    {
-    textstyle = TextStyle(color: Colors.red);
-    }
+    // CalendarFormat format = CalendarFormat.month;
 
     return Scaffold(
       appBar: AppBar(
         title: const Text('Calendar'),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          TableCalendar(
-            focusedDay: _focusedDay,
-            firstDay: DateTime(2022),
-            lastDay: DateTime(2050),
-            calendarFormat: _calendarFormat,
-            onFormatChanged: (format) {
-              if (_calendarFormat != format) {
-                setState(() {
-                  _calendarFormat = format;
-                });
-              }
-            },
-            rowHeight: 60,
-            daysOfWeekHeight: 60,
-            daysOfWeekStyle: DaysOfWeekStyle(
-                weekdayStyle: TextStyle(fontWeight: FontWeight.bold),
-                weekendStyle: TextStyle(color: Colors.red)
-                    ),
-            headerStyle: HeaderStyle(
-                formatButtonVisible: true,
-                titleCentered: true,
-                formatButtonShowsNext: true,
-                formatButtonDecoration: BoxDecoration(
-                    color: Colors.blue.shade200,
-                    borderRadius: BorderRadius.circular(20.0)),
-                formatButtonTextStyle: const TextStyle(
-                    color: Colors.black, fontWeight: FontWeight.bold),
-                titleTextStyle:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                headerPadding:
-                    const EdgeInsets.symmetric(horizontal: 1.0, vertical: 10)),
-            startingDayOfWeek: StartingDayOfWeek.sunday,
-            daysOfWeekVisible: true,
-            calendarStyle: CalendarStyle(
-              isTodayHighlighted: true,
+      body: SafeArea(
+        child: Column(
+          children: [
+            TableCalendar(
+              calendarBuilders: CalendarBuilders(dowBuilder: (context, day) {
+                if (day.weekday == DateTime.sunday) {
+                  final text = DateFormat.E().format(day);
+      
+                  return Center(
+                      child: Text(
+                    text,
+                    style: TextStyle(color: Colors.red),
+                  ));
+                }
+              }, weekNumberBuilder: (context, endWeek) {
+                if (endWeek == 1) {
+                  final textWeek = DateFormat.E(endWeek).toString();
               
-              weekendTextStyle: TextStyle(color: Colors.red),
-              selectedTextStyle: const TextStyle(color: Colors.white),
-              todayDecoration: BoxDecoration(
-                  color: Colors.purpleAccent,
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10.0)),
-              selectedDecoration: BoxDecoration(
-                  color: Colors.blue.shade200,
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10.0)),
-              weekendDecoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10)),
-              defaultDecoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  borderRadius: BorderRadius.circular(10)),
-              tableBorder: TableBorder(
-                  top: BorderSide(
-                    width: 1,
-                    color: Colors.grey.shade300,
-                  ),
-                  bottom: BorderSide(
-                    width: 1,
-                    color: Colors.grey.shade300,
-                  ),
-                  verticalInside: BorderSide(
-                    color: Colors.grey.shade300,
-                    width: 1,
-                  )),
-            ),
-            onDaySelected: (selectedDay, focusedDay) {
-              if (!isSameDay(_selectedDay, selectedDay)) {
-                setState(() {
-                  _selectedDay = selectedDay;
-                  _focusedDay = focusedDay;
-                });
-              }
-            },
-            selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
-            },
-            onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
-            },
-            eventLoader: _listOfDayEvents,
-          ),
-          ..._listOfDayEvents(_selectedDay!).map(
-            (myEvents) => ListTile(
-              leading: Icon(
-                Icons.done,
-                color: Colors.teal,
-              ),
-              title: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('Event Title:   ${myEvents['eventTitle']}'),
-              ),
-              subtitle: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text('Description:    ${myEvents['eventDescp']}'),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          Container(
-            padding: const EdgeInsets.only(bottom: 2),
-            decoration: const BoxDecoration(
-                border: Border(
+                return Center(
+                  child: Text(textWeek, style: TextStyle(color: Colors.red),),
+                );
+        }}),
+              focusedDay: _focusedDay,
+              firstDay: DateTime(2022),
+              lastDay: DateTime(2050),
+              calendarFormat: _calendarFormat,
+              onFormatChanged: (format) {
+                if (_calendarFormat != format) {
+                  setState(() {
+                    _calendarFormat = format;
+                  });
+                }
+              },
+              rowHeight: 60,
+              daysOfWeekHeight: 60,
+              daysOfWeekStyle: DaysOfWeekStyle(
+                  weekdayStyle: TextStyle(fontWeight: FontWeight.bold),
+                  weekendStyle: TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold)),
+              headerStyle: HeaderStyle(
+                  formatButtonVisible: true,
+                  titleCentered: true,
+                  formatButtonShowsNext: true,
+                  formatButtonDecoration: BoxDecoration(
+                      color: Colors.blue.shade200,
+                      borderRadius: BorderRadius.circular(20.0)),
+                  formatButtonTextStyle: const TextStyle(
+                      color: Colors.black, fontWeight: FontWeight.bold),
+                  titleTextStyle:
+                      const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  headerPadding:
+                      const EdgeInsets.symmetric(horizontal: 1.0, vertical: 10)),
+              startingDayOfWeek: StartingDayOfWeek.sunday,
+              daysOfWeekVisible: true,
+              calendarStyle: CalendarStyle(
+                isTodayHighlighted: true,
+                // weekendTextStyle: TextStyle(color: Colors.black),
+                selectedTextStyle: const TextStyle(color: Colors.white),
+                todayDecoration: BoxDecoration(
+                    color: Colors.purpleAccent,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(10.0)),
+                selectedDecoration: BoxDecoration(
+                    color: Colors.blue.shade200,
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(10.0)),
+                weekendDecoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(10)),
+                defaultDecoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    borderRadius: BorderRadius.circular(10)),
+                tableBorder: TableBorder(
+                    top: BorderSide(
+                      width: 1,
+                      color: Colors.grey.shade300,
+                    ),
                     bottom: BorderSide(
-              width: 2,
-            ))),
-            child: const Text(
-              'Event',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.black,
-                letterSpacing: 2.0,
-                fontSize: 20,
+                      width: 1,
+                      color: Colors.grey.shade300,
+                    ),
+                    verticalInside: BorderSide(
+                      color: Colors.grey.shade300,
+                      width: 1,
+                    )),
+              ),
+              onDaySelected: (selectedDay, focusedDay) {
+                if (!isSameDay(_selectedDay, selectedDay)) {
+                  setState(() {
+                    _selectedDay = selectedDay;
+                    _focusedDay = focusedDay;
+                  });
+                }
+              },
+              selectedDayPredicate: (day) {
+                return isSameDay(_selectedDay, day);
+              },
+              onPageChanged: (focusedDay) {
+                _focusedDay = focusedDay;
+              },
+              eventLoader: _listOfDayEvents,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+          
+            ..._listOfDayEvents(_selectedDay!).map(
+              (myEvents) => ListTile(
+                leading: Icon(
+                  Icons.done,
+                  color: Colors.teal,
+                ),
+                title: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Event Title:   ${myEvents['eventTitle']}'),
+                ),
+                subtitle: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text('Description:    ${myEvents['eventDescp']}'),
+                ),
               ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _showAddEventDialog(),
