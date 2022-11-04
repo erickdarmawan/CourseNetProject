@@ -8,7 +8,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:my_fluttercourse_p2/login.dart';
 import 'register.dart';
 import 'dynamic_list_view.dart';
-import 'map.dart';
+import 'map_page.dart';
 import 'covid_update.dart';
 import 'list_universty.dart';
 import 'catboys.dart';
