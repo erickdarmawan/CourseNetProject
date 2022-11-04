@@ -1,16 +1,13 @@
-# my_fluttercourse_p2
+# My Flutter Course
 
-A new Flutter project.
+This is my first mobile app project that I created during my study in Course-Net. This app has several variety of pages such as current location in the map, statistic of total result of Covid-19 patients, movies page, image gallery page, calendar page and listview page.
+This project will be improved from time to time.
 
-## Getting Started
+### Technologies used: 
+- dart SDK version: 2.18.2
+- Flutter 3.3.5
+- Visual Studio Code,
+- Android Studio
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+<br>
+<img src="images/Screenshot_1667549896.png">
