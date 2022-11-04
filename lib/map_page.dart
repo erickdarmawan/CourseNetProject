@@ -4,8 +4,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 const kGoogleApiKey = "AIzaSyAewObC4AwKmUWUzedixKm9C4912Wqj9uI";
 
-class MapWidget extends StatelessWidget {
-  const MapWidget({Key? key}) : super(key: key);
+class MapPage extends StatelessWidget {
+  const MapPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

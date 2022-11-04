@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-class SearchWidget extends StatefulWidget implements PreferredSizeWidget {
-  const SearchWidget({Key? key}) : super(key: key);
+class Search extends StatefulWidget implements PreferredSizeWidget {
+  const Search({Key? key}) : super(key: key);
 
   @override
-  State<SearchWidget> createState() => _SearchWidgetState();
+  State<Search> createState() => _SearchState();
 
   @override
   Size get preferredSize => const Size.fromHeight(50);
 }
 
-class _SearchWidgetState extends State<SearchWidget> {
+class _SearchState extends State<Search> {
   var iconSearch = Icons.search;
   Widget titleWidget = Text(
     "List Movie",

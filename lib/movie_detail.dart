@@ -5,24 +5,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class PageDetailWidget extends StatelessWidget {
-  PageDetailWidget({Key? key}) : super(key: key);
-
-  Future getMovieDetails(id) async {
-    var url = Uri.https('api.themoviedb.org', '3/movie/' + id, {
-      'api_key': '961cd89cb82c3946d873ce11f7c2a89f',
-    });
-    var response = await http.get(url);
-    print(response.body);
-    var result = json.decode(response.body);
-
-    return result;
-  }
+class MovieDetail extends StatelessWidget {
+  MovieDetail({Key? key}) : super(key: key);
 
   var selectedRating = 0;
 
   String text = '';
   String link = '';
+  
   @override
   Widget build(BuildContext context) {
     var id = ModalRoute.of(context)!.settings.arguments.toString();
@@ -219,7 +209,7 @@ class PageDetailWidget extends StatelessWidget {
                                     color: Colors.blue),
                                 child: IconButton(
                                   onPressed: () async {
-                                    Navigator.pushNamed(context, 'page_movies');
+                                    Navigator.pop(context);
                                   },
                                   icon: Icon(
                                     Icons.arrow_back,
@@ -279,4 +269,15 @@ class PageDetailWidget extends StatelessWidget {
   }
 
   setState(Null Function() param0) {}
+  
+  Future getMovieDetails(id) async {
+    var url = Uri.https('api.themoviedb.org', '3/movie/' + id, {
+      'api_key': '961cd89cb82c3946d873ce11f7c2a89f',
+    });
+    var response = await http.get(url);
+
+    var result = json.decode(response.body);
+
+    return result;
+  }
 }

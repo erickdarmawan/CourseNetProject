@@ -4,14 +4,14 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'search.dart';
 
-class MovieWidget extends StatefulWidget {
-  const MovieWidget({Key? key}) : super(key: key);
+class Movies extends StatefulWidget {
+  const Movies({Key? key}) : super(key: key);
 
   @override
-  State<MovieWidget> createState() => _MovieWidgetState();
+  State<Movies> createState() => _MoviesState();
 }
 
-class _MovieWidgetState extends State<MovieWidget> {
+class _MoviesState extends State<Movies> {
   Future getMovie() async {
     String theAPI = '';
     if (selectedIndex == 0) {
@@ -58,7 +58,7 @@ class _MovieWidgetState extends State<MovieWidget> {
           setState(() {});
         },
       ),
-      appBar: const SearchWidget(),
+      appBar: const Search(),
       body: FutureBuilder(
         future: getMovie(),
         builder: (context, snapshot) {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class CarouselWidget extends StatelessWidget {
+class Carousel extends StatelessWidget {
   int activeIndex = 0;
   final urlImages = [
     'https://www.retrogamer.net/wp-content/uploads/2014/05/DuckHunt-616x390.png',

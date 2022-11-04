@@ -2,11 +2,11 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const ListBookingWidget());
+  runApp(const ListBooking());
 }
 
-class ListBookingWidget extends StatelessWidget {
-  const ListBookingWidget({Key? key}) : super(key: key);
+class ListBooking extends StatelessWidget {
+  const ListBooking({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

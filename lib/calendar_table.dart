@@ -130,25 +130,13 @@ class _CalendarTableState extends State<CalendarTable> {
               calendarBuilders: CalendarBuilders(dowBuilder: (context, day) {
                 if (day.weekday == DateTime.sunday) {
                   final text = DateFormat.E().format(day);
-      
-                  return Center(
-                      child: Text(
-                    text,
-                    style: TextStyle(color: Colors.red),
-                  ));
                 }
-              }, weekNumberBuilder: (context, endWeek) {
-                if (endWeek == 1) {
-                  final textWeek = DateFormat.E(endWeek).toString();
-              
-                return Center(
-                  child: Text(textWeek, style: TextStyle(color: Colors.red),),
-                );
-        }}),
+              }),
               focusedDay: _focusedDay,
               firstDay: DateTime(2022),
               lastDay: DateTime(2050),
               calendarFormat: _calendarFormat,
+              weekendDays: const [7],
               onFormatChanged: (format) {
                 if (_calendarFormat != format) {
                   setState(() {
@@ -158,10 +146,10 @@ class _CalendarTableState extends State<CalendarTable> {
               },
               rowHeight: 60,
               daysOfWeekHeight: 60,
-              daysOfWeekStyle: DaysOfWeekStyle(
+              daysOfWeekStyle: const DaysOfWeekStyle(
                   weekdayStyle: TextStyle(fontWeight: FontWeight.bold),
                   weekendStyle: TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.bold)),
+                      color: Colors.red, fontWeight: FontWeight.bold)),
               headerStyle: HeaderStyle(
                   formatButtonVisible: true,
                   titleCentered: true,
@@ -171,15 +159,15 @@ class _CalendarTableState extends State<CalendarTable> {
                       borderRadius: BorderRadius.circular(20.0)),
                   formatButtonTextStyle: const TextStyle(
                       color: Colors.black, fontWeight: FontWeight.bold),
-                  titleTextStyle:
-                      const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                  headerPadding:
-                      const EdgeInsets.symmetric(horizontal: 1.0, vertical: 10)),
+                  titleTextStyle: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
+                  headerPadding: const EdgeInsets.symmetric(
+                      horizontal: 1.0, vertical: 10)),
               startingDayOfWeek: StartingDayOfWeek.sunday,
               daysOfWeekVisible: true,
               calendarStyle: CalendarStyle(
                 isTodayHighlighted: true,
-                // weekendTextStyle: TextStyle(color: Colors.black),
+                weekendTextStyle: const TextStyle(color: Colors.red),
                 selectedTextStyle: const TextStyle(color: Colors.white),
                 todayDecoration: BoxDecoration(
                     color: Colors.purpleAccent,
@@ -228,20 +216,42 @@ class _CalendarTableState extends State<CalendarTable> {
             const SizedBox(
               height: 10,
             ),
-          
             ..._listOfDayEvents(_selectedDay!).map(
-              (myEvents) => ListTile(
-                leading: Icon(
-                  Icons.done,
-                  color: Colors.teal,
+              (myEvents) => Container(
+                padding: const EdgeInsets.all(2),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey.shade300,
                 ),
-                title: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('Event Title:   ${myEvents['eventTitle']}'),
-                ),
-                subtitle: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text('Description:    ${myEvents['eventDescp']}'),
+                child: ListView(
+                  scrollDirection: Axis.vertical,
+                  children: [
+                    ListTile(
+                      leading: const Icon(
+                        Icons.done,
+                        color: Colors.teal,
+                      ),
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Text('Event Title:'),
+                          const SizedBox(width: 10),
+                          Text('${myEvents['eventTitle']}')
+                        ],
+                      ),
+                      subtitle: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Text('Description:'),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Text('${myEvents['eventDescp']}')
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -249,9 +259,11 @@ class _CalendarTableState extends State<CalendarTable> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _showAddEventDialog(),
-        label: const Text('Add Event'),
-      ),
+          onPressed: () => _showAddEventDialog(),
+          label: const Text(
+            'Add Event',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          )),
     );
   }
 }

@@ -3,11 +3,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 
-class ResultWidget extends StatefulWidget {
-  const ResultWidget({Key? key}) : super(key: key);
+class Result extends StatefulWidget {
+  const Result({Key? key}) : super(key: key);
 
   @override
-  State<ResultWidget> createState() => _ResultWidgetState();
+  State<Result> createState() => _ResultState();
 }
 
 Future searchMovie(x) async {
@@ -20,7 +20,7 @@ Future searchMovie(x) async {
   return r;
 }
 
-class _ResultWidgetState extends State<ResultWidget> {
+class _ResultState extends State<Result> {
   @override
   Widget build(BuildContext context) {
     var search = ModalRoute.of(context)!.settings.arguments.toString();

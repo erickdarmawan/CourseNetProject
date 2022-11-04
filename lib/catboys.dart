@@ -4,14 +4,14 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-class CatboysWidget extends StatefulWidget {
-  const CatboysWidget({Key? key}) : super(key: key);
+class Catboys extends StatefulWidget {
+  const Catboys({Key? key}) : super(key: key);
 
   @override
-  State<CatboysWidget> createState() => _CatboysWidgetState();
+  State<Catboys> createState() => _CatboysState();
 }
 
-class _CatboysWidgetState extends State<CatboysWidget> {
+class _CatboysState extends State<Catboys> {
   List<dynamic> imageUrls = [];
   var numList = [];
 

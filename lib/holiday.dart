@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-class HolidaysWidget extends StatefulWidget {
-  const HolidaysWidget({Key? key}) : super(key: key);
+class Holiday extends StatefulWidget {
+  const Holiday({Key? key}) : super(key: key);
 
   @override
-  State<HolidaysWidget> createState() => _HolidaysWidgetState();
+  State<Holiday> createState() => _HolidayState();
 }
 
-class _HolidaysWidgetState extends State<HolidaysWidget> {
+class _HolidayState extends State<Holiday> {
   List holidays = [];
 
   bool processing = true;

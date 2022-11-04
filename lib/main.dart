@@ -1,41 +1,39 @@
 import 'package:flutter/material.dart';
-import 'package:my_fluttercourse_p2/calendar_view.dart';
+import 'package:my_fluttercourse_p2/calendar_table.dart';
 import 'package:my_fluttercourse_p2/data_covid.dart';
+import 'package:my_fluttercourse_p2/movie_detail.dart';
 import 'package:my_fluttercourse_p2/movies.dart';
-import 'package:my_fluttercourse_p2/home.dart';
+import 'package:my_fluttercourse_p2/home_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
 import 'package:my_fluttercourse_p2/login.dart';
-
 import 'register.dart';
 import 'dynamic_list_view.dart';
 import 'map.dart';
-
 import 'covid_update.dart';
 import 'list_universty.dart';
 import 'catboys.dart';
-import 'Page_detail.dart';
+import 'package:my_fluttercourse_p2/movie_detail.dart';
 import 'result.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   //await Firebase.initializeApp();
   initializeDateFormatting().then((_) => runApp(MaterialApp(routes: {
-        'page_home': (context) => const HomeWidget(),
-        'page_register': (context) => const RegisterWidget(),
+        'page_home': (context) => const HomePage(),
+        'page_register': (context) => const Register(),
         //'page_login': (context) => const LoginWidget(),
         'page_dynamic_view': (context) => DynamicListView(),
-        'page_map': (context) => const MapWidget(),
-        'page_covid': (context) => const CovidWidget(),
-        'page_covid_update': (context) => const CovidUpdateWidget(),
-        'page_university': (context) => const ListUniversityWidget(),
-        'page_catboys': (context) => const CatboysWidget(),
-        'page_movies': (context) => const MovieWidget(),
-        'page_detail': (context) => PageDetailWidget(),
-        'page_result': (context) => const ResultWidget(),
+        'page_map': (context) => const MapPage(),
+        'page_covid': (context) => const DataCovid(),
+        'page_covid_update': (context) => const CovidUpdate(),
+        'page_university': (context) => const ListUniversity(),
+        'page_catboys': (context) => const Catboys(),
+        'page_movies': (context) => const Movies(),
+        'page_detail': (context) => MovieDetail(),
+        'page_result': (context) => const Result(),
         // 'page_holiday': (context) => const HolidaysWidget(),
         'page_calendar': (context) => const CalendarTable(),
-      }, home: const HomeWidget()
+      }, home: const HomePage()
           // LoginWidget(),
           )));
 }

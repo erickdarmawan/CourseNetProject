@@ -1,14 +1,14 @@
 // import 'package:flutter/material.dart';
 // import 'package:email_validator/email_validator.dart';
 
-// class LoginWidget extends StatefulWidget {
-//   const LoginWidget({Key? key}) : super(key: key);
+// class Login extends StatefulWidget {
+//   const Login({Key? key}) : super(key: key);
 
 //   @override
-//   State<LoginWidget> createState() => _LoginWidgetState();
+//   State<Login> createState() => _LoginState();
 // }
 
-// class _LoginWidgetState extends State<LoginWidget> {
+// class _LoginState extends State<Login> {
 //   var f = GlobalKey<FormState>();
 
 //   @override

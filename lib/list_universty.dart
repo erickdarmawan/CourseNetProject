@@ -3,14 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class ListUniversityWidget extends StatefulWidget {
-  const ListUniversityWidget({Key? key}) : super(key: key);
+class ListUniversity extends StatefulWidget {
+  const ListUniversity({Key? key}) : super(key: key);
 
   @override
-  State<ListUniversityWidget> createState() => _ListUniversityWidgetState();
+  State<ListUniversity> createState() => _ListUniversityState();
 }
 
-class _ListUniversityWidgetState extends State<ListUniversityWidget> {
+class _ListUniversityState extends State<ListUniversity> {
   List countries = [];
   bool processing = true;
   var selectedCountry;

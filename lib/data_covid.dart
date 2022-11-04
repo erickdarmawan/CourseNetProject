@@ -3,8 +3,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class CovidWidget extends StatelessWidget {
-  const CovidWidget({Key? key}) : super(key: key);
+class DataCovid extends StatelessWidget {
+  const DataCovid({Key? key}) : super(key: key);
 
   getDataCovid() async {
     var url = Uri.https('data.covid19.go.id', 'public/api/update.json');

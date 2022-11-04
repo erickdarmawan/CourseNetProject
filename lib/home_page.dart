@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'carousel_slider.dart';
+import 'package:my_fluttercourse_p2/carousel.dart';
 import 'data/menu.dart';
 
-class HomeWidget extends StatelessWidget {
-  const HomeWidget({Key? key}) : super(key: key);
+class HomePage extends StatelessWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +133,7 @@ class HomeWidget extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: CarouselWidget(),
+          child: Carousel(),
         ),
       ]),
       drawer: Drawer(
@@ -226,7 +226,7 @@ class HomeWidget extends StatelessWidget {
               elevation: 10,
               child: ListTile(
                 leading: const Icon(Icons.calendar_month_outlined),
-                title: const Text('Calendar View'),
+                title: const Text('Calendar'),
                 onTap: () {
                   Navigator.pushNamed(context, 'page_calendar');
                 },

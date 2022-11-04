@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RegisterWidget extends StatefulWidget {
-  const RegisterWidget({Key? key}) : super(key: key);
+class Register extends StatefulWidget {
+  const Register({Key? key}) : super(key: key);
 
   @override
-  State<RegisterWidget> createState() => _RegisterWidgetState();
+  State<Register> createState() => _RegisterState();
 }
 
-class _RegisterWidgetState extends State<RegisterWidget> {
+class _RegisterState extends State<Register> {
   var isChecked = false;
   var eyeChecked = false;
 
