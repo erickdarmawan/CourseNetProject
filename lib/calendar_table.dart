@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -111,8 +110,6 @@ class _CalendarTableState extends State<CalendarTable> {
 
   @override
   Widget build(BuildContext context) {
-    // CalendarFormat format = CalendarFormat.month;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Calendar'),
@@ -209,47 +206,10 @@ class _CalendarTableState extends State<CalendarTable> {
             const SizedBox(
               height: 10,
             ),
-            ..._listOfDayEvents(_selectedDay!).map(
-              (myEvents) => Container(
-                height: 95,
-                width: 355,
-                margin: const EdgeInsets.only(top: 10),
-                padding:
-                    const EdgeInsets.only(top: 3, bottom: 20, left: 5),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.red,
-                ),
-                child: ListTile(
-                  // leading: const Icon(
-                  //   Icons.done,
-                  //   color: Colors.teal,
-                  // ),
-                  title: Row(
-                    children: [
-                      const Text(
-                        'Event Title:',
-                      ),
-                      const SizedBox(width: 6),
-                      Text('${myEvents['eventTitle']}'),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      IconButton(
-                          onPressed: () {}, icon: Icon(Icons.cancel)),
-                    ],
-                  ),
-                  subtitle: Row(
-                    children: [
-                      const Text('Description:'),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      Text('${myEvents['eventDescp']}'),
-                    ],
-                  ),
-                ),
-              ),
+            Expanded(
+              child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Column(children: constructEventList(_selectedDay))),
             ),
           ],
         ),
@@ -261,5 +221,42 @@ class _CalendarTableState extends State<CalendarTable> {
             style: TextStyle(fontWeight: FontWeight.bold),
           )),
     );
+  }
+  
+
+  List<Container> constructEventList(DateTime? selectedDay) {
+    if (selectedDay == null) {
+      return [];
+    }
+    return _listOfDayEvents(selectedDay)
+        .map((myEvents) => Container(
+            height: 95,
+            width: 355,
+            margin: const EdgeInsets.all(3),
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.grey.shade300,
+            ),
+            child: ListTile(
+              contentPadding: const EdgeInsets.only(top: 5, left: 10),
+              title: Row(children: [
+                Text(
+                  '${myEvents['eventTitle']}',
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1,
+                      decoration: TextDecoration.underline),
+                ),
+              ]),
+              subtitle: Row(children: [
+                Text('${myEvents['eventDescp']}',
+                    style:
+                        const TextStyle(letterSpacing: 1, color: Colors.black))
+              ]),
+              trailing:
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.cancel)),
+            )))
+        .toList();
   }
 }
