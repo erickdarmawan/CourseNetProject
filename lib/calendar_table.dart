@@ -80,9 +80,6 @@ class _CalendarTableState extends State<CalendarTable> {
                         ));
                         return;
                       } else {
-                        print(titleController.text);
-                        print(descpController.text);
-
                         if (mySelectedEvents[DateFormat('yyyy-MM-dd')
                                 .format(_selectedDay!)] !=
                             null) {
@@ -102,8 +99,6 @@ class _CalendarTableState extends State<CalendarTable> {
                           ];
                         }
 
-                        print(
-                            'New event for backend developer ${json.encode(mySelectedEvents)}');
                         titleController.clear();
                         descpController.clear();
                         Navigator.pop(context);
@@ -128,9 +123,7 @@ class _CalendarTableState extends State<CalendarTable> {
           children: [
             TableCalendar(
               calendarBuilders: CalendarBuilders(dowBuilder: (context, day) {
-                if (day.weekday == DateTime.sunday) {
-                  final text = DateFormat.E().format(day);
-                }
+                if (day.weekday == DateTime.sunday) {}
               }),
               focusedDay: _focusedDay,
               firstDay: DateTime(2022),
@@ -218,40 +211,43 @@ class _CalendarTableState extends State<CalendarTable> {
             ),
             ..._listOfDayEvents(_selectedDay!).map(
               (myEvents) => Container(
-                padding: const EdgeInsets.all(2),
-                alignment: Alignment.center,
+                height: 95,
+                width: 355,
+                margin: const EdgeInsets.only(top: 10),
+                padding:
+                    const EdgeInsets.only(top: 3, bottom: 20, left: 5),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
-                  color: Colors.grey.shade300,
+                  color: Colors.red,
                 ),
-                child: ListView(
-                  scrollDirection: Axis.vertical,
-                  children: [
-                    ListTile(
-                      leading: const Icon(
-                        Icons.done,
-                        color: Colors.teal,
+                child: ListTile(
+                  // leading: const Icon(
+                  //   Icons.done,
+                  //   color: Colors.teal,
+                  // ),
+                  title: Row(
+                    children: [
+                      const Text(
+                        'Event Title:',
                       ),
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Text('Event Title:'),
-                          const SizedBox(width: 10),
-                          Text('${myEvents['eventTitle']}')
-                        ],
+                      const SizedBox(width: 6),
+                      Text('${myEvents['eventTitle']}'),
+                      const SizedBox(
+                        height: 10,
                       ),
-                      subtitle: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Text('Description:'),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Text('${myEvents['eventDescp']}')
-                        ],
+                      IconButton(
+                          onPressed: () {}, icon: Icon(Icons.cancel)),
+                    ],
+                  ),
+                  subtitle: Row(
+                    children: [
+                      const Text('Description:'),
+                      const SizedBox(
+                        width: 10,
                       ),
-                    ),
-                  ],
+                      Text('${myEvents['eventDescp']}'),
+                    ],
+                  ),
                 ),
               ),
             ),
