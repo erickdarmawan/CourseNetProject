@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_launcher_icons/main.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -25,19 +26,11 @@ class _CalendarTableState extends State<CalendarTable> {
     _selectedDay = _focusedDay;
   }
 
-  List _listOfDayEvents(DateTime dateTime) {
-    if (mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)] != null) {
-      return mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)]!;
-    } else {
-      return [];
-    }
-  }
-
-  Map<String, List> mySelectedEvents = {};
+  Map<String, List<Map>> mySelectedEvents = {};
   final titleController = TextEditingController();
   final descpController = TextEditingController();
 
-  _showAddEventDialog() async {
+  Future _showAddEventDialog() async {
     await showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -46,23 +39,23 @@ class _CalendarTableState extends State<CalendarTable> {
                 textAlign: TextAlign.center,
               ),
               content: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextField(
-                    controller: titleController,
-                    textCapitalization: TextCapitalization.words,
-                    decoration: const InputDecoration(
-                      labelText: 'Title',
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: titleController,
+                      textCapitalization: TextCapitalization.words,
+                      decoration: const InputDecoration(
+                        labelText: 'Title',
+                      ),
                     ),
-                  ),
-                  TextField(
-                    controller: descpController,
-                    textCapitalization: TextCapitalization.words,
-                    decoration: const InputDecoration(labelText: 'Description'),
-                  ),
-                ],
-              ),
+                    TextField(
+                      controller: descpController,
+                      textCapitalization: TextCapitalization.words,
+                      decoration:
+                          const InputDecoration(labelText: 'Description'),
+                    )
+                  ]),
               actions: [
                 TextButton(
                     onPressed: () => Navigator.pop(context),
@@ -97,7 +90,6 @@ class _CalendarTableState extends State<CalendarTable> {
                             }
                           ];
                         }
-
                         titleController.clear();
                         descpController.clear();
                         Navigator.pop(context);
@@ -119,9 +111,7 @@ class _CalendarTableState extends State<CalendarTable> {
         child: Column(
           children: [
             TableCalendar(
-              calendarBuilders: CalendarBuilders(dowBuilder: (context, day) {
-                if (day.weekday == DateTime.sunday) {}
-              }),
+              calendarBuilders: CalendarBuilders(dowBuilder: (context, day) {}),
               focusedDay: _focusedDay,
               firstDay: DateTime(2022),
               lastDay: DateTime(2050),
@@ -222,41 +212,57 @@ class _CalendarTableState extends State<CalendarTable> {
           )),
     );
   }
-  
 
-  List<Container> constructEventList(DateTime? selectedDay) {
+  List<Card> constructEventList(DateTime? selectedDay) {
     if (selectedDay == null) {
       return [];
     }
     return _listOfDayEvents(selectedDay)
-        .map((myEvents) => Container(
-            height: 95,
-            width: 355,
-            margin: const EdgeInsets.all(3),
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+        .map((myEvent) => Card(
+            shadowColor: Colors.black,
+            elevation: 0.5,
+            child: Container(
+              height: 80,
+              width: 355,
               color: Colors.grey.shade300,
-            ),
-            child: ListTile(
-              contentPadding: const EdgeInsets.only(top: 5, left: 10),
-              title: Row(children: [
-                Text(
-                  '${myEvents['eventTitle']}',
-                  style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      letterSpacing: 1,
-                      decoration: TextDecoration.underline),
-                ),
-              ]),
-              subtitle: Row(children: [
-                Text('${myEvents['eventDescp']}',
-                    style:
-                        const TextStyle(letterSpacing: 1, color: Colors.black))
-              ]),
-              trailing:
-                  IconButton(onPressed: () {}, icon: const Icon(Icons.cancel)),
+              child: ListTile(
+                contentPadding: const EdgeInsets.only(top: 5, left: 10),
+                title: Row(children: [
+                  Text(
+                    '${myEvent['eventTitle']}',
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1,
+                        decoration: TextDecoration.underline),
+                  ),
+                ]),
+                subtitle: Row(children: [
+                  Text('${myEvent['eventDescp']}',
+                      style: const TextStyle(
+                          letterSpacing: 1, color: Colors.black))
+                ]),
+                trailing: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        final formattedDay =
+                            DateFormat('yyyy-MM-dd').format(selectedDay);
+                        final events = mySelectedEvents[formattedDay];
+                        if (events != null) {
+                          events.remove(myEvent);
+                        }
+                      });
+                    },
+                    icon: const Icon(Icons.delete)),
+              ),
             )))
         .toList();
+  }
+
+  List<Map> _listOfDayEvents(DateTime dateTime) {
+    if (mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)] != null) {
+      return mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)]!;
+    } else {
+      return [];
+    }
   }
 }
