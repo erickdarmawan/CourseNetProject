@@ -30,17 +30,12 @@ class _CalendarTableState extends State<CalendarTable> {
   final titleController = TextEditingController();
   final descpController = TextEditingController();
 
-  Future _showAddEventDialog(Map? selectedEvent) async {
-    final heading = selectedEvent != null ? 'Edit Event' : ' Add Event';
-    titleController.text =
-        selectedEvent != null ? selectedEvent['eventTitle'] : '';
-    descpController.text =
-        selectedEvent != null ? selectedEvent['eventDescp'] : '';
+  Future _showAddEventDialog() async {
     await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: Text(
-                heading,
+              title: const Text(
+                'Add New Event',
                 textAlign: TextAlign.center,
               ),
               content: Column(
@@ -51,7 +46,7 @@ class _CalendarTableState extends State<CalendarTable> {
                       controller: titleController,
                       textCapitalization: TextCapitalization.words,
                       decoration: const InputDecoration(
-                        labelText: "Title",
+                        labelText: 'Title',
                       ),
                     ),
                     TextField(
@@ -73,28 +68,28 @@ class _CalendarTableState extends State<CalendarTable> {
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text('Requiered title and description'),
-                          duration: Duration(seconds: 5),
+                          duration: Duration(seconds: 2),
                         ));
                         return;
                       } else {
-                        final key =
-                            DateFormat('yyyy-MM-dd').format((_selectedDay!));
-                        final newValue = {
-                          'eventTitle': titleController.text,
-                          'eventDescp': descpController.text
-                        };
-                        final int? indexOfExistingEvent = mySelectedEvents[key]
-                            ?.indexWhere((element) => element == selectedEvent);
-                        setState(() {
-                          if (indexOfExistingEvent != null) {
-                            mySelectedEvents[key]?[indexOfExistingEvent] =
-                                newValue;
-                          } else if (mySelectedEvents[key] != null) {
-                            mySelectedEvents[key]?.add(newValue);
-                          } else {
-                            mySelectedEvents[key] = [newValue];
-                          }
-                        });
+                        if (mySelectedEvents[DateFormat('yyyy-MM-dd')
+                                .format(_selectedDay!)] !=
+                            null) {
+                          mySelectedEvents[DateFormat('yyyy-MM-dd')
+                                  .format(_selectedDay!)]
+                              ?.add({
+                            'eventTitle': titleController.text,
+                            'eventDescp': descpController.text,
+                          });
+                        } else {
+                          mySelectedEvents[DateFormat('yyyy-MM-dd')
+                              .format(_selectedDay!)] = [
+                            {
+                              'eventTitle': titleController.text,
+                              'eventDescp': descpController.text
+                            }
+                          ];
+                        }
                         titleController.clear();
                         descpController.clear();
                         Navigator.pop(context);
@@ -210,7 +205,7 @@ class _CalendarTableState extends State<CalendarTable> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => _showAddEventDialog(null),
+          onPressed: () => _showAddEventDialog(),
           label: const Text(
             'Add Event',
             style: TextStyle(fontWeight: FontWeight.bold),
@@ -224,57 +219,48 @@ class _CalendarTableState extends State<CalendarTable> {
     }
     return _listOfDayEvents(selectedDay)
         .map((myEvent) => Card(
-            shadowColor: Colors.black,
-            elevation: 0.5,
-            child: Container(
-              height: 80,
-              width: 355,
-              color: Colors.grey.shade300,
-              child: ListTile(
-                contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                title: Row(children: [
-                  Text(
-                    '${myEvent['eventTitle']}',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
-                        decoration: TextDecoration.underline),
-                  ),
-                ]),
-                subtitle: Row(children: [
-                  Text('${myEvent['eventDescp']}',
+              shadowColor: Colors.black,
+              elevation: 0.5,
+              child: Container(
+                height: 80,
+                width: 355,
+                color: Colors.grey.shade300,
+                child: ListTile(
+                  contentPadding: const EdgeInsets.only(top: 5, left: 10),
+                  title: Row(children: [
+                    Text(
+                      '${myEvent['eventTitle']}',
                       style: const TextStyle(
-                          letterSpacing: 1, color: Colors.black))
-                ]),
-                trailing: SizedBox(
-                  width: 80,
-                  child: Row(
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
+                          decoration: TextDecoration.underline),
+                    ),
+                  ]),
+                  subtitle: Row(children: [
+                    Text('${myEvent['eventDescp']}',
+                        style: const TextStyle(
+                            letterSpacing: 1, color: Colors.black))
+                  ]),
+                  trailing: Column(
                     children: [
-                      Expanded(
-                          child: IconButton(
-                              onPressed: () {
-                                _showAddEventDialog(myEvent);
-                              },
-                              icon: const Icon(Icons.edit))),
-                      Expanded(
-                        child: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                final formattedDay = DateFormat('yyyy-MM-dd')
-                                    .format(selectedDay);
-                                final events = mySelectedEvents[formattedDay];
-                                if (events != null) {
-                                  events.remove(myEvent);
-                                }
-                              });
-                            },
-                            icon: const Icon(Icons.delete)),
-                      ),
+                      IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+                      IconButton(
+                          onPressed: () {
+                            setState(() {
+                              final formattedDay =
+                                  DateFormat('yyyy-MM-dd').format(selectedDay);
+                              final events = mySelectedEvents[formattedDay];
+                              if (events != null) {
+                                events.remove(myEvent);
+                              }
+                            });
+                          },
+                          icon: const Icon(Icons.delete)),
                     ],
                   ),
                 ),
               ),
-            )))
+            ))
         .toList();
   }
 

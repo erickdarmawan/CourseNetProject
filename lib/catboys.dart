@@ -58,44 +58,47 @@ class _CatboysState extends State<Catboys> {
             child: Flexible(
               child: Column(
                 children: [
-                  Center(
-                    child: Container(
-                      color: Colors.grey.shade200,
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              numList[index],
-                              const SizedBox(
-                                width: 5,
-                              ),
-                              Flexible(
-                                child: CachedNetworkImage(
-                                  cacheManager: customCacheManager,
-                                  imageUrl: imageUrls[index],
-                                  key: UniqueKey(),
-                                  height: 300,
-                                  width: 520,
-                                  fit: BoxFit.cover,
-                                  placeholder: (context, url) => const Center(
-                                      child: CircularProgressIndicator()),
-                                  errorWidget: (context, url, error) =>
-                                      const Center(child: Icon(Icons.error)),
+                  Card(
+                    child: Center(
+                      child: Container(
+                        height: 315,
+                        color: Colors.grey.shade200,
+                        child: Column(
+                          children: [
+                            Row(
+                              children: [
+                                const SizedBox(
+                                  width: 5,
                                 ),
-                              ),
-                            ],
-                          ),
-                        ],
+                                numList[index],
+                                const SizedBox(
+                                  width: 5,
+                                ),
+                                Flexible(
+                                  child: CachedNetworkImage(
+                                    cacheManager: customCacheManager,
+                                    imageUrl: imageUrls[index],
+                                    key: UniqueKey(),
+                                    height: 300,
+                                    width: 520,
+                                    fit: BoxFit.cover,
+                                    placeholder: (context, url) => const Center(
+                                        child: CircularProgressIndicator()),
+                                    errorWidget: (context, url, error) =>
+                                        const Center(child: Icon(Icons.error)),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                  const Divider(
-                    thickness: 1,
-                    color: Colors.black,
-                  ),
+                  // const Divider(
+                  //   thickness: 1,
+                  //   color: Colors.black,
+                  // ),
                 ],
               ),
             ),
