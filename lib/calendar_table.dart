@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_launcher_icons/main.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -26,16 +25,18 @@ class _CalendarTableState extends State<CalendarTable> {
     _selectedDay = _focusedDay;
   }
 
-  Map<String, List<Map>> mySelectedEvents = {};
+  Map<String, List<EventItem>> mySelectedEvents = {};
   final titleController = TextEditingController();
   final descpController = TextEditingController();
 
-  Future _showAddEventDialog(Map? selectedEvent) async {
-    final heading = selectedEvent != null ? 'Edit Event' : ' Add Event';
+  Future _showAddEventDialog(EventItem? selectedEvent) async {
+    final heading = selectedEvent != null ? 'Edit Event' : 'Add Event';
     titleController.text =
-        selectedEvent != null ? selectedEvent['eventTitle'] : '';
+        selectedEvent != null ? selectedEvent.titleEvent : '';
     descpController.text =
-        selectedEvent != null ? selectedEvent['eventDescp'] : '';
+        selectedEvent != null ? selectedEvent.descp : '';
+    final actionDialog = selectedEvent != null ? 'Save Event' : 'Add Event';
+
     await showDialog(
         context: context,
         builder: (context) => AlertDialog(
@@ -66,7 +67,7 @@ class _CalendarTableState extends State<CalendarTable> {
                     onPressed: () => Navigator.pop(context),
                     child: const Text('Cancel')),
                 TextButton(
-                    child: const Text('Add Event'),
+                    child: Text(actionDialog),
                     onPressed: () {
                       if (titleController.text.isEmpty &&
                           descpController.text.isEmpty) {
@@ -79,14 +80,17 @@ class _CalendarTableState extends State<CalendarTable> {
                       } else {
                         final key =
                             DateFormat('yyyy-MM-dd').format((_selectedDay!));
-                        final newValue = {
-                          'eventTitle': titleController.text,
-                          'eventDescp': descpController.text
-                        };
+                        // final newValue = {
+                        //   'eventTitle': titleController.text,
+                        //   'eventDescp': descpController.text
+                        // };
+                        final newValue = EventItem(titleController.text, descpController.text);
+
                         final int? indexOfExistingEvent = mySelectedEvents[key]
-                            ?.indexWhere((element) => element == selectedEvent);
+                            ?.indexWhere((element) => element == EventItem);
                         setState(() {
-                          if (indexOfExistingEvent != null) {
+                          if (indexOfExistingEvent != null &&
+                              indexOfExistingEvent != -1) {
                             mySelectedEvents[key]?[indexOfExistingEvent] =
                                 newValue;
                           } else if (mySelectedEvents[key] != null) {
@@ -234,7 +238,7 @@ class _CalendarTableState extends State<CalendarTable> {
                 contentPadding: const EdgeInsets.only(top: 5, left: 10),
                 title: Row(children: [
                   Text(
-                    '${myEvent['eventTitle']}',
+                    myEvent.titleEvent,
                     style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         letterSpacing: 1,
@@ -242,7 +246,7 @@ class _CalendarTableState extends State<CalendarTable> {
                   ),
                 ]),
                 subtitle: Row(children: [
-                  Text('${myEvent['eventDescp']}',
+                  Text(myEvent.descp,
                       style: const TextStyle(
                           letterSpacing: 1, color: Colors.black))
                 ]),
@@ -276,13 +280,21 @@ class _CalendarTableState extends State<CalendarTable> {
               ),
             )))
         .toList();
+
   }
 
-  List<Map> _listOfDayEvents(DateTime dateTime) {
+
+  List<EventItem> _listOfDayEvents(DateTime dateTime) {
     if (mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)] != null) {
       return mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)]!;
     } else {
       return [];
     }
   }
+}
+
+class EventItem {
+  String titleEvent;
+  String descp;
+  EventItem(this.titleEvent, this.descp);
 }

@@ -30,7 +30,7 @@ class _CatboysState extends State<Catboys> {
         numList.add(
           Text(
             '${i + 1}',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 16,
             ),
           ),
@@ -95,10 +95,6 @@ class _CatboysState extends State<Catboys> {
                       ),
                     ),
                   ),
-                  // const Divider(
-                  //   thickness: 1,
-                  //   color: Colors.black,
-                  // ),
                 ],
               ),
             ),
