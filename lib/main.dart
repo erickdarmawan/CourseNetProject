@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_fluttercourse_p2/calendar_table.dart';
+import 'package:my_fluttercourse_p2/catboy_full_screen.dart';
 import 'package:my_fluttercourse_p2/data_covid.dart';
 import 'package:my_fluttercourse_p2/movie_detail.dart';
 import 'package:my_fluttercourse_p2/movies.dart';
@@ -31,6 +32,7 @@ Future<void> main() async {
         'page_movies': (context) => const Movies(),
         'page_detail': (context) => MovieDetail(),
         'page_result': (context) => const Result(),
+        'page_catboy_full_screen': (context) => CatboyFullScreen(),
         // 'page_holiday': (context) => const HolidaysWidget(),
         'page_calendar': (context) => const CalendarTable(),
       }, home: const HomePage()
