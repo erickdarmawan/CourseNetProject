@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
-
 class Catboys extends StatefulWidget {
   const Catboys({Key? key}) : super(key: key);
 
@@ -37,83 +36,95 @@ class _CatboysState extends State<Catboys> {
           ),
         );
       });
-      callCatBoysFromNetwork();
+      callCatBoysFromNetwork(true);
     }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text('Cat Boys'),
-          centerTitle: true,
-        ),
-        body: ListView.separated(
-          separatorBuilder: ((context, index) => const SizedBox(
-                height: 5,
-              )),
-          itemCount: imageUrls.length,
-          itemBuilder: (context, index) => ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Flexible(
-              child: Column(
-                children: [
-                  OutlinedButton(
-                    onPressed: () {
-                      var selectedCatBoy = imageUrls[index];
-                      Navigator.pushNamed(context, 'page_catboy_full_screen',
-                      arguments: selectedCatBoy);
-                    },
-                    child: Card(
-                      child: Center(
-                        child: Container(
-                          height: 315,
-                          color: Colors.grey.shade200,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  numList[index],
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Flexible(
-                                    child: CachedNetworkImage(
-                                      cacheManager: customCacheManager,
-                                      imageUrl: imageUrls[index],
-                                      key: UniqueKey(),
-                                      height: 300,
-                                      width: 520,
-                                      fit: BoxFit.cover,
-                                      placeholder: (context, url) => const Center(
-                                          child: CircularProgressIndicator()),
-                                      errorWidget: (context, url, error) =>
-                                          const Center(child: Icon(Icons.error)),
+    return RefreshIndicator(
+      onRefresh: () async {
+        callCatBoysFromNetwork(true);
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text('Cat Boys'),
+            centerTitle: true,
+          ),
+          body: ListView.separated(
+            separatorBuilder: ((context, index) => const SizedBox(
+                  height: 5,
+                )),
+            itemCount: imageUrls.length,
+            itemBuilder: (context, index) => ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Flexible(
+                child: Column(
+                  children: [
+                    OutlinedButton(
+                      onPressed: () {
+                        var selectedCatBoy = imageUrls[index];
+                        Navigator.pushNamed(context, 'page_catboy_full_screen',
+                            arguments: selectedCatBoy);
+                      },
+                      child: Card(
+                        child: Center(
+                          child: Container(
+                            height: 315,
+                            color: Colors.grey.shade200,
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 5,
                                     ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    numList[index],
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    Flexible(
+                                      child: CachedNetworkImage(
+                                        cacheManager: customCacheManager,
+                                        imageUrl: imageUrls[index],
+                                        key: UniqueKey(),
+                                        height: 300,
+                                        width: 520,
+                                        fit: BoxFit.cover,
+                                        placeholder: (context, url) =>
+                                            const Center(
+                                                child:
+                                                    CircularProgressIndicator()),
+                                        errorWidget: (context, url, error) =>
+                                            const Center(
+                                                child: Icon(Icons.error)),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 
-  Future callCatBoysFromNetwork() async {
+  Future<void> callCatBoysFromNetwork(bool reload) async {
+    setState(
+      () => imageUrls.clear()
+    );
+
     var url = Uri.https('api.catboys.com', 'img');
     var response = await http.get(url).catchError((error) {
-      if (callCatBoysFromNetwork != callCatBoysFromNetwork){
+      if (callCatBoysFromNetwork != callCatBoysFromNetwork) {
         return const Center(child: Icon(Icons.error));
       }
     });
