@@ -1,17 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:vector_math/vector_math_64.dart' show Vector3;
-
-class CatboyFullScreen extends StatefulWidget {
-  @override
-  State<CatboyFullScreen> createState() => _CatboyFullScreenState();
-}
-
-class _CatboyFullScreenState extends State<CatboyFullScreen> {
-  double _initialScale = 1.0;
-  double _scaleFactor = 1.0;
-  double _previousScale = 1.0;
-
+class CatboyFullScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final String? selectedCatBoy =
@@ -51,6 +40,8 @@ class _CatboyFullScreenState extends State<CatboyFullScreen> {
               ),
             ),
           ),
+          onPanStart: (details) {},
+          onPanUpdate: (details) {},
         ),
       ),
     );

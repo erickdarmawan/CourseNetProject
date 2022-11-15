@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 
+
 class Catboys extends StatefulWidget {
   const Catboys({Key? key}) : super(key: key);
 
@@ -124,7 +125,7 @@ class _CatboysState extends State<Catboys> {
 
     var url = Uri.https('api.catboys.com', 'img');
     var response = await http.get(url).catchError((error) {
-      if (callCatBoysFromNetwork != callCatBoysFromNetwork) {
+      if (callCatBoysFromNetwork != callCatBoysFromNetwork){
         return const Center(child: Icon(Icons.error));
       }
     });
