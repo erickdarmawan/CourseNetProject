@@ -1,22 +1,13 @@
 import 'dart:io';
-
+import 'catboys/catboys_page.dart';
 import 'package:flutter/material.dart';
-import 'package:my_fluttercourse_p2/calendar_table.dart';
-import 'package:my_fluttercourse_p2/catboy_full_screen.dart';
-import 'package:my_fluttercourse_p2/data_covid.dart';
-import 'package:my_fluttercourse_p2/movie_detail.dart';
-import 'package:my_fluttercourse_p2/movies.dart';
+import 'calendar/calendar_page.dart';
+import 'covid/covid_page.dart';
+import 'movies/movies_page.dart';
+import 'login/login_page.dart';
 import 'package:my_fluttercourse_p2/home_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:my_fluttercourse_p2/login.dart';
-import 'register.dart';
-import 'dynamic_list_view.dart';
-import 'map_page.dart';
-import 'covid_update.dart';
-import 'list_universty.dart';
-import 'catboys.dart';
-import 'package:my_fluttercourse_p2/movie_detail.dart';
-import 'result.dart';
+import 'misc/misc_pages.dart';
 import 'package:flutter/foundation.dart';
 
 Future<void> main() async {
@@ -204,10 +195,11 @@ class _FlutterHomePageState extends State<FlutterHomePage> {
   }
 }
 
-class MyHttpOverrides extends HttpOverrides{
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
