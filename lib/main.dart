@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:my_fluttercourse_p2/calendar_table.dart';
 import 'package:my_fluttercourse_p2/catboy_full_screen.dart';
@@ -15,8 +17,13 @@ import 'list_universty.dart';
 import 'catboys.dart';
 import 'package:my_fluttercourse_p2/movie_detail.dart';
 import 'result.dart';
+import 'package:flutter/foundation.dart';
 
 Future<void> main() async {
+  if (kDebugMode) {
+    HttpOverrides.global = MyHttpOverrides();
+  }
+
   WidgetsFlutterBinding.ensureInitialized();
   //await Firebase.initializeApp();
   initializeDateFormatting().then((_) => runApp(MaterialApp(routes: {
@@ -194,5 +201,13 @@ class _FlutterHomePageState extends State<FlutterHomePage> {
     setState(() {
       _counter++;
     });
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }
