@@ -9,6 +9,7 @@ import 'package:my_fluttercourse_p2/home_page.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'misc/misc_pages.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 Future<void> main() async {
   if (kDebugMode) {
@@ -45,6 +46,15 @@ class FlutterDemo extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('id', 'ID' ),
+        Locale('en', 'ID'),
+        ],
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
