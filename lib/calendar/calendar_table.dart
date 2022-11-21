@@ -1,9 +1,17 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'calendar_page.dart';
+import 'package:collection/collection.dart';
 
 void main() {
+  const dateTimeString = '2020-07-17T03:18:31.177769-04:00';
+  final dateTime = DateTime.parse(dateTimeString);
+
+  final format = DateFormat('HH:mm a');
+
   runApp(const CalendarTable());
 }
 
@@ -17,6 +25,30 @@ class CalendarTable extends StatefulWidget {
 class _CalendarTableState extends State<CalendarTable> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
 
+// TODO: sementara aja, bakal di replace sama holidayApi
+  Map<DateTime, String> holidayList = {
+    DateTime.parse('2022-01-01'): 'New Year\'s Eve',
+    DateTime.parse('2022-02-01'): 'Chinese New Year',
+    DateTime.parse('2022-02-28'): 'Isra Mi\'aj',
+    DateTime.parse('2022-03-03'): 'Bali Hindu New Year',
+    DateTime.parse('2022-04-15'): 'Good Friday',
+    DateTime.parse('2022-04-29'): 'Lebaran Holiday',
+    DateTime.parse('2022-05-01'): 'Labour Day',
+    DateTime.parse('2022-05-02'): 'Hari Raya Idul Fitri',
+    DateTime.parse('2022-05-03'): 'Lebaran Holiday',
+    DateTime.parse('2022-05-04'): 'Lebaran Holiday',
+    DateTime.parse('2022-05-05'): 'Lebaran Holiday',
+    DateTime.parse('2022-05-06'): 'Lebaran Holiday',
+    DateTime.parse('2022-05-16'): 'Waisak Day',
+    DateTime.parse('2022-05-26'): 'Ascension Day Of Jesus Christ',
+    DateTime.parse('2022-06-01'): 'Pancasila Day',
+    DateTime.parse('2022-07-10'): 'Idul Adha',
+    DateTime.parse('2022-07-30'): 'Islamic New Year',
+    DateTime.parse('2022-08-17'): 'Independence Day',
+    DateTime.parse('2022-10-08'): 'Prophet Muhammad\'s Birthday',
+    DateTime.parse('2022-12-25'): 'Christman Day',
+  };
+
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
 
@@ -24,9 +56,39 @@ class _CalendarTableState extends State<CalendarTable> {
   void initState() {
     super.initState();
     _selectedDay = _focusedDay;
+    // convertHolidayListToSelectedEvent(holidayList);
   }
 
-  Map<String, List<EventItem>> mySelectedEvents = {};
+  // void convertHolidayListToSelectedEvent (Map<DateTime, String>holidayList){
+  //   mySelectedEvents = holidayList.map((key, value) {
+  //           print(key);
+  //     return "bla" : [EventItem("teswt", "ts")];
+  //     //TODO
+  //   },);
+  //   //TODO
+  // }
+  Map<String, List<EventItem>> mySelectedEvents = {
+    '2022-01-01': [EventItem('', 'Independence Day')],
+    '2022-02-01': [EventItem('', 'Chinese New Year')],
+    '2022-2-28': [EventItem('', 'Isra Mir\'aj')],
+    '2022-3-3': [EventItem('', 'Bali Hindu New Year')],
+    '2022-4-15': [EventItem('', 'Good Friday')],
+    '2022-4-29': [EventItem('', 'Lebaran Holiday')],
+    '2022-05-01': [EventItem('', 'Labour Day')],
+    '2022-05-02': [EventItem('', 'Hari Raya Idul Fitri')],
+    '2022-05-03': [EventItem('', 'Lebaran Holiday')],
+    '2022-05-04': [EventItem('', 'Lebaran Holiday')],
+    '2022-05-05': [EventItem('', 'Lebaran Holiday')],
+    '2022-05-06': [EventItem('', 'Lebaran Holiday')],
+    '2022-05-16': [EventItem('', 'Waisak Day')],
+    '2022-05-26': [EventItem('', 'Ascension Day of Jesus Christ')],
+    '2022-06-01': [EventItem('', 'Pancasila Day')],
+    '2022-07-10': [EventItem('', 'Idul Adha')],
+    '2022-07-17': [EventItem('', 'Independence Day')],
+    '2022-10-08': [EventItem('', 'Prophet Muhammad\'s Birthday')],
+    '2022-12-25': [EventItem('', 'Christmas Day')],
+    
+  };
   final titleController = TextEditingController();
   final descpController = TextEditingController();
 
@@ -123,10 +185,28 @@ class _CalendarTableState extends State<CalendarTable> {
                 children: [
                   TableCalendar(
                     locale: 'id_ID',
-                    holidayPredicate: null,
+                    holidayPredicate: (DateTime dateTime) {
+                      DateTime? holidayDate = holidayList.keys.firstWhereOrNull(
+                          (element) =>
+                              element.day == dateTime.day &&
+                              element.month == dateTime.month &&
+                              element.year == dateTime.year);
+
+                      if (holidayDate != null) {
+                        return true;
+                      } else {
+                        return false;
+                      }
+                    },
                     calendarBuilders: CalendarBuilders(
-                      dowBuilder: (context, day) {},
-                      holidayBuilder: (context, day, focusedDay) {},
+                      holidayBuilder: (context, date, holiday) {
+                        return Center(
+                          child: Text(
+                            date.day.toString(),
+                            style: TextStyle(color: Colors.red),
+                          ),
+                        );
+                      },
                     ),
                     focusedDay: _focusedDay,
                     firstDay: DateTime(2022),
@@ -302,9 +382,58 @@ class _CalendarTableState extends State<CalendarTable> {
     }
   }
 }
-  // List<Holidays> listOfHolidays(DateTime dateTime){
-    
-  // }
+
+// List<Holidays> nationalHoliday(DateTime holiday) {
+//   List<Text> filteredTextHoliday = [];
+//   var holidayNational = DateTime.parse()
+
+// }
+
+Text holidayRed(WeekDay date) {
+  return Text(
+    date != null ? date.toString() : '',
+    style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+  );
+}
+
+// static DateTime parse(String formattedString) {
+//   var re = _parseFormat;
+//   Match? match = re.firstMatch(formattedString);
+//   if (match != null) {
+//     int parseIntOrZero(String? matched) {
+//       if (matched == null) return 0;
+//       return int.parse(matched);
+//     }
+// int getDateHoliday(String dateHoliday){
+//   // var dateHoliday =
+//   if (dateHoliday == null) return 0;
+//   int length = dateHoliday.length;
+//   assert(length >= 1);
+//       int result = 0;
+//       for (int i = 0; i < 6; i++) {
+//         result *= 10;
+//         if (i < dateHoliday.length) {
+//           result += dateHoliday.codeUnitAt(i) ^ 0x30;
+//         }
+//       }
+//       return result;
+//     }
+// }}
+
+// int getHashCode(DateTime key){
+//   return key.day * 1000000 + key.month * 1000002 * key.year;
+// }
+// groupHolidays(List<AppEvent> events) {
+//     groupHolidays() = LinkedHashMap(equals: isSameDay, hashCode: getHashCode);
+//     events.forEach((event) {
+//       DateTime date = DateTime.utc(
+//           event.startDate.year, event.startDate.month, event.startDate.day, 12);
+//       if (groupHolidays[date] == null) groupHolidays[date] = [];
+//       groupHolidays[date].add(event);
+//     });
+//   }
+// LinkedHashMap<DateTime, List<Holidays>>? _publicHoliday;
+// _publicHoliday = LinkedHashMap(equals: isSameDay, hashCode: getHashCode);
 
 class EventItem {
   String titleEvent;

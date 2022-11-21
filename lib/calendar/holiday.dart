@@ -11,15 +11,15 @@ Future getHoliday() async {
 
   if (response.statusCode == 200) {
     var result = json.decode(response.body);
-    // var holidays = result['holidays'] as List;
+
     List<Holidays> holidayList = [];
     for (final each in result['holidays']) {
       var weekday = WeekDay(
           each['weekday']['date']['name'], each['weekday']['date']['numeric']);
-      Holidays(
+      final holiday = Holidays(
           each['name'], each['date'], each['public'], each['country'], weekday);
+      holidayList.add(holiday);
     }
-
     return holidayList;
   } else {
     return [];
