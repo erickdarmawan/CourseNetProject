@@ -27,68 +27,61 @@ class _CalendarTableState extends State<CalendarTable> {
 
 // TODO: sementara aja, bakal di replace sama holidayApi
   Map<DateTime, String> holidayList = {
-    DateTime.parse('2022-01-01'): 'New Year\'s Eve',
-    DateTime.parse('2022-02-01'): 'Chinese New Year',
-    DateTime.parse('2022-02-28'): 'Isra Mi\'aj',
-    DateTime.parse('2022-03-03'): 'Bali Hindu New Year',
-    DateTime.parse('2022-04-15'): 'Good Friday',
-    DateTime.parse('2022-04-29'): 'Lebaran Holiday',
-    DateTime.parse('2022-05-01'): 'Labour Day',
-    DateTime.parse('2022-05-02'): 'Hari Raya Idul Fitri',
-    DateTime.parse('2022-05-03'): 'Lebaran Holiday',
-    DateTime.parse('2022-05-04'): 'Lebaran Holiday',
-    DateTime.parse('2022-05-05'): 'Lebaran Holiday',
-    DateTime.parse('2022-05-06'): 'Lebaran Holiday',
-    DateTime.parse('2022-05-16'): 'Waisak Day',
-    DateTime.parse('2022-05-26'): 'Ascension Day Of Jesus Christ',
-    DateTime.parse('2022-06-01'): 'Pancasila Day',
-    DateTime.parse('2022-07-10'): 'Idul Adha',
-    DateTime.parse('2022-07-30'): 'Islamic New Year',
-    DateTime.parse('2022-08-17'): 'Independence Day',
-    DateTime.parse('2022-10-08'): 'Prophet Muhammad\'s Birthday',
-    DateTime.parse('2022-12-25'): 'Christman Day',
+    DateTime.parse('2022-01-01 00:00:00.000Z'): 'New Year\'s Eve',
+    DateTime.parse('2022-02-01 00:00:00.000Z'): 'Chinese New Year',
+    DateTime.parse('2022-02-28 00:00:00.000Z'): 'Isra Mi\'aj',
+    DateTime.parse('2022-03-03 00:00:00.000Z'): 'Bali Hindu New Year',
+    DateTime.parse('2022-04-15 00:00:00.000Z'): 'Good Friday',
+    DateTime.parse('2022-04-29 00:00:00.000Z'): 'Lebaran Holiday',
+    DateTime.parse('2022-05-01 00:00:00.000Z'): 'Labour Day',
+    DateTime.parse('2022-05-02 00:00:00.000Z'): 'Hari Raya Idul Fitri',
+    DateTime.parse('2022-05-03 00:00:00.000Z'): 'Lebaran Holiday',
+    DateTime.parse('2022-05-04 00:00:00.000Z'): 'Lebaran Holiday',
+    DateTime.parse('2022-05-05 00:00:00.000Z'): 'Lebaran Holiday',
+    DateTime.parse('2022-05-06 00:00:00.000Z'): 'Lebaran Holiday',
+    DateTime.parse('2022-05-16 00:00:00.000Z'): 'Waisak Day',
+    DateTime.parse('2022-05-26 00:00:00.000Z'): 'Ascension Day Of Jesus Christ',
+    DateTime.parse('2022-06-01 00:00:00.000Z'): 'Pancasila Day',
+    DateTime.parse('2022-07-10 00:00:00.000Z'): 'Idul Adha',
+    DateTime.parse('2022-07-30 00:00:00.000Z'): 'Islamic New Year',
+    DateTime.parse('2022-08-17 00:00:00.000Z'): 'Independence Day',
+    DateTime.parse('2022-10-08 00:00:00.000Z'): 'Prophet Muhammad\'s Birthday',
+    DateTime.parse('2022-12-25 00:00:00.000Z'): 'Christmas Day',
   };
 
   DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
+  DateTime? _holidayDay;
 
   @override
   void initState() {
     super.initState();
     _selectedDay = _focusedDay;
-    // convertHolidayListToSelectedEvent(holidayList);
   }
 
-  // void convertHolidayListToSelectedEvent (Map<DateTime, String>holidayList){
-  //   mySelectedEvents = holidayList.map((key, value) {
-  //           print(key);
-  //     return "bla" : [EventItem("teswt", "ts")];
-  //     //TODO
-  //   },);
-  //   //TODO
-  // }
   Map<String, List<EventItem>> mySelectedEvents = {
-    '2022-01-01': [EventItem('', 'Independence Day')],
-    '2022-02-01': [EventItem('', 'Chinese New Year')],
-    '2022-2-28': [EventItem('', 'Isra Mir\'aj')],
-    '2022-3-3': [EventItem('', 'Bali Hindu New Year')],
-    '2022-4-15': [EventItem('', 'Good Friday')],
-    '2022-4-29': [EventItem('', 'Lebaran Holiday')],
-    '2022-05-01': [EventItem('', 'Labour Day')],
-    '2022-05-02': [EventItem('', 'Hari Raya Idul Fitri')],
-    '2022-05-03': [EventItem('', 'Lebaran Holiday')],
-    '2022-05-04': [EventItem('', 'Lebaran Holiday')],
-    '2022-05-05': [EventItem('', 'Lebaran Holiday')],
-    '2022-05-06': [EventItem('', 'Lebaran Holiday')],
-    '2022-05-16': [EventItem('', 'Waisak Day')],
-    '2022-05-26': [EventItem('', 'Ascension Day of Jesus Christ')],
-    '2022-06-01': [EventItem('', 'Pancasila Day')],
-    '2022-07-10': [EventItem('', 'Idul Adha')],
-    '2022-07-17': [EventItem('', 'Independence Day')],
-    '2022-10-08': [EventItem('', 'Prophet Muhammad\'s Birthday')],
-    '2022-12-25': [EventItem('', 'Christmas Day')],
-    
+    '2022-01-01': [EventItem('', 'Independence Day', true)],
+    '2022-02-01': [EventItem('', 'Chinese New Year', true)],
+    '2022-02-28': [EventItem('', 'Isra Mir\'aj', true)],
+    '2022-03-03': [EventItem('', 'Bali Hindu New Year', true)],
+    '2022-04-15': [EventItem('', 'Good Friday', true)],
+    '2022-04-29': [EventItem('', 'Lebaran Holiday', true)],
+    '2022-05-01': [EventItem('', 'Labour Day', true)],
+    '2022-05-02': [EventItem('', 'Hari Raya Idul Fitri', true)],
+    '2022-05-03': [EventItem('', 'Lebaran Holiday', true)],
+    '2022-05-04': [EventItem('', 'Lebaran Holiday', true)],
+    '2022-05-05': [EventItem('', 'Lebaran Holiday', true)],
+    '2022-05-06': [EventItem('', 'Lebaran Holiday', true)],
+    '2022-05-16': [EventItem('', 'Waisak Day', true)],
+    '2022-05-26': [EventItem('', 'Ascension Day of Jesus Christ', true)],
+    '2022-06-01': [EventItem('', 'Pancasila Day', true)],
+    '2022-07-10': [EventItem('', 'Idul Adha', true)],
+    '2022-07-30': [EventItem('', 'Islamic New Year', true)],
+    '2022-08-17': [EventItem('', 'Independence Day', true)],
+    '2022-10-08': [EventItem('', 'Prophet Muhammad\'s Birthday', true)],
+    '2022-12-25': [EventItem('', 'Christmas Day', true)],
   };
+
   final titleController = TextEditingController();
   final descpController = TextEditingController();
 
@@ -144,7 +137,7 @@ class _CalendarTableState extends State<CalendarTable> {
                             DateFormat('yyyy-MM-dd').format((_selectedDay!));
 
                         final newValue = EventItem(
-                            titleController.text, descpController.text);
+                            titleController.text, descpController.text, false);
 
                         final int? indexOfExistingEvent = mySelectedEvents[key]
                             ?.indexWhere((element) => element == EventItem);
@@ -203,7 +196,7 @@ class _CalendarTableState extends State<CalendarTable> {
                         return Center(
                           child: Text(
                             date.day.toString(),
-                            style: TextStyle(color: Colors.red),
+                            style: const TextStyle(color: Colors.red),
                           ),
                         );
                       },
@@ -294,15 +287,17 @@ class _CalendarTableState extends State<CalendarTable> {
                   ),
                   Expanded(
                     child: SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child:
-                            Column(children: constructEventList(_selectedDay))),
+                      scrollDirection: Axis.vertical,
+                      child: Column(
+                        children: constructEventList(_selectedDay),
+                      ),
+                    ),
                   ),
                 ],
               ),
             );
           }
-          return Text('');
+          return const Center(child: CircularProgressIndicator());
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
@@ -318,60 +313,77 @@ class _CalendarTableState extends State<CalendarTable> {
     if (selectedDay == null) {
       return [];
     }
-    return _listOfDayEvents(selectedDay)
-        .map((myEvent) => Card(
-            shadowColor: Colors.black,
-            elevation: 0.5,
-            child: Container(
-              height: 80,
-              width: 355,
-              color: Colors.grey.shade300,
-              child: ListTile(
-                contentPadding: const EdgeInsets.only(top: 5, left: 10),
-                title: Row(children: [
-                  Text(
-                    myEvent.titleEvent,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        letterSpacing: 1,
-                        decoration: TextDecoration.underline),
-                  ),
-                ]),
-                subtitle: Row(children: [
-                  Text(myEvent.descp,
+    return _listOfDayEvents(selectedDay).map((myEvent) {
+      bool isPublicHoliday = myEvent.isPublicHoliday;
+
+      return Card(
+          shadowColor: Colors.black,
+          elevation: 0.5,
+          child: Container(
+            height: isPublicHoliday ? 50 : 80,
+            width: 355,
+            color: isPublicHoliday ? Colors.red : Colors.grey.shade300,
+            child: isPublicHoliday
+                ? Center(
+                    child: Text(
+                      myEvent.descp,
                       style: const TextStyle(
-                          letterSpacing: 1, color: Colors.black))
-                ]),
-                trailing: SizedBox(
-                  width: 80,
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: IconButton(
-                              onPressed: () {
-                                _showAddEventDialog(myEvent);
-                              },
-                              icon: const Icon(Icons.edit))),
-                      Expanded(
-                        child: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                final formattedDay = DateFormat('yyyy-MM-dd')
-                                    .format(selectedDay);
-                                final events = mySelectedEvents[formattedDay];
-                                if (events != null) {
-                                  events.remove(myEvent);
-                                }
-                              });
-                            },
-                            icon: const Icon(Icons.delete)),
+                          color: Colors.white,
+                          letterSpacing: 1,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  )
+                : ListTile(
+                    contentPadding: const EdgeInsets.only(top: 5, left: 10),
+                    title: Row(children: [
+                      Text(
+                        myEvent.titleEvent,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1,
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
-                    ],
+                    ]),
+                    subtitle: Row(children: [
+                      Text(myEvent.descp,
+                          style: const TextStyle(
+                              letterSpacing: 1, color: Colors.black))
+                    ]),
+                    trailing: SizedBox(
+                      width: 80,
+                      child: isPublicHoliday
+                          ? null
+                          : Row(
+                              children: [
+                                Expanded(
+                                    child: IconButton(
+                                        onPressed: () {
+                                          _showAddEventDialog(myEvent);
+                                        },
+                                        icon: const Icon(Icons.edit))),
+                                Expanded(
+                                  child: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          final formattedDay =
+                                              DateFormat('yyyy-MM-dd')
+                                                  .format(selectedDay);
+                                          final events =
+                                              mySelectedEvents[formattedDay];
+                                          if (events != null) {
+                                            events.remove(myEvent);
+                                          }
+                                        });
+                                      },
+                                      icon: const Icon(Icons.delete)),
+                                ),
+                              ],
+                            ),
+                    ),
                   ),
-                ),
-              ),
-            )))
-        .toList();
+          ));
+    }).toList();
   }
 
   List<EventItem> _listOfDayEvents(DateTime dateTime) {
@@ -382,61 +394,13 @@ class _CalendarTableState extends State<CalendarTable> {
     }
   }
 }
-
-// List<Holidays> nationalHoliday(DateTime holiday) {
-//   List<Text> filteredTextHoliday = [];
-//   var holidayNational = DateTime.parse()
-
-// }
-
-Text holidayRed(WeekDay date) {
-  return Text(
-    date != null ? date.toString() : '',
-    style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
-  );
-}
-
-// static DateTime parse(String formattedString) {
-//   var re = _parseFormat;
-//   Match? match = re.firstMatch(formattedString);
-//   if (match != null) {
-//     int parseIntOrZero(String? matched) {
-//       if (matched == null) return 0;
-//       return int.parse(matched);
-//     }
-// int getDateHoliday(String dateHoliday){
-//   // var dateHoliday =
-//   if (dateHoliday == null) return 0;
-//   int length = dateHoliday.length;
-//   assert(length >= 1);
-//       int result = 0;
-//       for (int i = 0; i < 6; i++) {
-//         result *= 10;
-//         if (i < dateHoliday.length) {
-//           result += dateHoliday.codeUnitAt(i) ^ 0x30;
-//         }
-//       }
-//       return result;
-//     }
-// }}
-
-// int getHashCode(DateTime key){
-//   return key.day * 1000000 + key.month * 1000002 * key.year;
-// }
-// groupHolidays(List<AppEvent> events) {
-//     groupHolidays() = LinkedHashMap(equals: isSameDay, hashCode: getHashCode);
-//     events.forEach((event) {
-//       DateTime date = DateTime.utc(
-//           event.startDate.year, event.startDate.month, event.startDate.day, 12);
-//       if (groupHolidays[date] == null) groupHolidays[date] = [];
-//       groupHolidays[date].add(event);
-//     });
-//   }
-// LinkedHashMap<DateTime, List<Holidays>>? _publicHoliday;
-// _publicHoliday = LinkedHashMap(equals: isSameDay, hashCode: getHashCode);
-
 class EventItem {
   String titleEvent;
   String descp;
-  EventItem(this.titleEvent, this.descp);
+  bool isPublicHoliday;
+  EventItem(this.titleEvent, this.descp, this.isPublicHoliday);
+}
+class HolidayItem {
+  String titleHoliday;
+  HolidayItem(this.titleHoliday);
 }

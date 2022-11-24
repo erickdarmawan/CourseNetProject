@@ -123,7 +123,13 @@ class _CatboysState extends State<Catboys> {
   Future callCatBoysFromNetwork() async {
     var url = Uri.https('api.catboys.com', 'img');
     var response = await http.get(url).catchError((error) {
-      if (callCatBoysFromNetwork != callCatBoysFromNetwork) {
+      if (imageUrls == imageUrls) {
+        List someCats = Set.of(imageUrls).toList();
+      }
+      if (imageUrls != null) {
+        imageUrls.add(imageUrls);
+      }
+      {
         return const Center(child: Icon(Icons.error));
       }
     });
