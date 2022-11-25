@@ -380,16 +380,14 @@ class _CalendarTableState extends State<CalendarTable> {
     }).toList();
   }
 
-   List<EventItem> _listOfDayEventsForEventLoader(DateTime dateTime) {
+  List<EventItem> _listOfDayEventsForEventLoader(DateTime dateTime) {
     List<EventItem>? events =
         mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)];
     if (events != null) {
-      // final List<EventItem> publicHolidayEventItems =
-          // events.where((element) => element.isPublicHoliday).toList();
-          final List<EventItem> nonPublicHolidayEventItems =
+      final List<EventItem> nonPublicHolidayEventItems =
           events.where((element) => element.isPublicHoliday == false).toList();
-          if(nonPublicHolidayEventItems.isNotEmpty){
-      return events;
+      if (nonPublicHolidayEventItems.isNotEmpty) {
+        return nonPublicHolidayEventItems;
       } else {
         return [];
       }
@@ -402,7 +400,6 @@ class _CalendarTableState extends State<CalendarTable> {
     List<EventItem>? events =
         mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)];
     if (events != null) {
-     
       return events;
     } else {
       return [];
