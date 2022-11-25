@@ -124,9 +124,12 @@ class _CatboysState extends State<Catboys> {
     var url = Uri.https('api.catboys.com', 'img');
     var response = await http.get(url).catchError((error) {
       if (imageUrls == imageUrls) {
-        List someCats = Set.of(imageUrls).toList();
+        imageUrls.remove(imageUrls); {
+        imageUrls.add(imageUrls);
+        // List someCats = Set.of(imageUrls).toList();
+        }
       }
-      if (imageUrls != null) {
+      if (imageUrls.isEmpty) {
         imageUrls.add(imageUrls);
       }
       {

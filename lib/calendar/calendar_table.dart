@@ -56,34 +56,26 @@ class _CalendarTableState extends State<CalendarTable> {
   @override
   void initState() {
     super.initState();
+    _sendHolidayListToEvents(holidayList);
     _selectedDay = _focusedDay;
   }
 
-  Map<String, List<EventItem>> mySelectedEvents = {
-    '2022-01-01': [EventItem('', 'Independence Day', true)],
-    '2022-02-01': [EventItem('', 'Chinese New Year', true)],
-    '2022-02-28': [EventItem('', 'Isra Mir\'aj', true)],
-    '2022-03-03': [EventItem('', 'Bali Hindu New Year', true)],
-    '2022-04-15': [EventItem('', 'Good Friday', true)],
-    '2022-04-29': [EventItem('', 'Lebaran Holiday', true)],
-    '2022-05-01': [EventItem('', 'Labour Day', true)],
-    '2022-05-02': [EventItem('', 'Hari Raya Idul Fitri', true)],
-    '2022-05-03': [EventItem('', 'Lebaran Holiday', true)],
-    '2022-05-04': [EventItem('', 'Lebaran Holiday', true)],
-    '2022-05-05': [EventItem('', 'Lebaran Holiday', true)],
-    '2022-05-06': [EventItem('', 'Lebaran Holiday', true)],
-    '2022-05-16': [EventItem('', 'Waisak Day', true)],
-    '2022-05-26': [EventItem('', 'Ascension Day of Jesus Christ', true)],
-    '2022-06-01': [EventItem('', 'Pancasila Day', true)],
-    '2022-07-10': [EventItem('', 'Idul Adha', true)],
-    '2022-07-30': [EventItem('', 'Islamic New Year', true)],
-    '2022-08-17': [EventItem('', 'Independence Day', true)],
-    '2022-10-08': [EventItem('', 'Prophet Muhammad\'s Birthday', true)],
-    '2022-12-25': [EventItem('', 'Christmas Day', true)],
-  };
+  Map<String, List<EventItem>> mySelectedEvents = {};
 
   final titleController = TextEditingController();
   final descpController = TextEditingController();
+
+  void _sendHolidayListToEvents(Map<DateTime, String> holidayList) {
+    Map<String, List<EventItem>> events = {};
+    for (MapEntry holiday in holidayList.entries) {
+      final String eventKey = DateFormat('yyyy-MM-dd').format(holiday.key);
+      final List<EventItem> eventValue = [
+        EventItem(isPublicHoliday: true, titleEvent: '', descp: holiday.value)
+      ];
+      events[eventKey] = eventValue;
+    }
+    mySelectedEvents = events;
+  }
 
   Future _showAddEventDialog(EventItem? selectedEvent) async {
     final heading = selectedEvent != null ? 'Edit Event' : 'Add Event';
@@ -137,7 +129,9 @@ class _CalendarTableState extends State<CalendarTable> {
                             DateFormat('yyyy-MM-dd').format((_selectedDay!));
 
                         final newValue = EventItem(
-                            titleController.text, descpController.text, false);
+                            isPublicHoliday: false,
+                            titleEvent: titleController.text,
+                            descp: descpController.text);
 
                         final int? indexOfExistingEvent = mySelectedEvents[key]
                             ?.indexWhere((element) => element == EventItem);
@@ -280,7 +274,7 @@ class _CalendarTableState extends State<CalendarTable> {
                     onPageChanged: (focusedDay) {
                       _focusedDay = focusedDay;
                     },
-                    eventLoader: _listOfDayEvents,
+                    eventLoader: _listOfDayEventsForEventLoader,
                   ),
                   const SizedBox(
                     height: 10,
@@ -386,21 +380,42 @@ class _CalendarTableState extends State<CalendarTable> {
     }).toList();
   }
 
+   List<EventItem> _listOfDayEventsForEventLoader(DateTime dateTime) {
+    List<EventItem>? events =
+        mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)];
+    if (events != null) {
+      // final List<EventItem> publicHolidayEventItems =
+          // events.where((element) => element.isPublicHoliday).toList();
+          final List<EventItem> nonPublicHolidayEventItems =
+          events.where((element) => element.isPublicHoliday == false).toList();
+          if(nonPublicHolidayEventItems.isNotEmpty){
+      return events;
+      } else {
+        return [];
+      }
+    } else {
+      return [];
+    }
+  }
+
   List<EventItem> _listOfDayEvents(DateTime dateTime) {
-    if (mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)] != null) {
-      return mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)]!;
+    List<EventItem>? events =
+        mySelectedEvents[DateFormat('yyyy-MM-dd').format(dateTime)];
+    if (events != null) {
+     
+      return events;
     } else {
       return [];
     }
   }
 }
+
 class EventItem {
   String titleEvent;
   String descp;
   bool isPublicHoliday;
-  EventItem(this.titleEvent, this.descp, this.isPublicHoliday);
-}
-class HolidayItem {
-  String titleHoliday;
-  HolidayItem(this.titleHoliday);
+  EventItem(
+      {required this.isPublicHoliday,
+      required this.titleEvent,
+      required this.descp});
 }
